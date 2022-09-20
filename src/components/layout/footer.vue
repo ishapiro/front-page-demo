@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-footer class="indigo--text text--darken-4">
+    <v-footer class="light-blue lighten-5">
       <v-container>
         <v-row>
           <v-col>
