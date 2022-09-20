@@ -1,316 +1,345 @@
 <template>
-  <div>
-    <v-app-bar
-      color="info"
-      app
-      height="100"
-    >
-      <v-container d-flex align-center>
-        <div class="d-flex d-md-none">
-          <v-app-bar-nav-icon class="black--text" @click="drawer = true">
-            <v-icon
-            light
-            >
-              mdi-text
-            </v-icon>
-          </v-app-bar-nav-icon>
-        </div>
-        <v-spacer class="d-flex d-md-none"></v-spacer>
-        <v-img
-          alt="Vuetify Logo"
-          class="shrink mr-2"
-          contain
-          src="@/assets/logo.png"
-          transition="scale-transition"
-          max-width="100%"
-        />
-        <v-spacer></v-spacer>
-
-        <div class="d-none d-md-flex">
-          <v-tooltip bottom>
-            <template v-slot:activator="{ on, attrs }">
-              <v-btn plain icon  class="blue--text text--darken-4"
-              to="/"
-              link
-              name="FrontPage"
-              >
-                <v-icon light v-bind="attrs" v-on="on">mdi-home</v-icon>
-              </v-btn>
-            </template>
-            <span>Home</span>
-          </v-tooltip>
-
-          <v-tooltip bottom>
-            <template v-slot:activator="{ on, attrs }">
-              <v-btn
-                plain
-                icon
-                class="blue--text text--darken-4"
-                href="https://youtube.com/c/makewithtech"
-                target="_blank"
-              >
-                <v-icon light v-bind="attrs" v-on="on">mdi-video</v-icon>
-              </v-btn>
-            </template>
-            <span>3d Printing Videos and Tutorials</span>
-          </v-tooltip>
-
-          <v-tooltip bottom>
-            <template v-slot:activator="{ on, attrs }">
-              <v-btn
-                plain
-                icon
-                
-                class="blue--text text--darken-4"
-              >
-                <v-icon light v-bind="attrs" v-on="on">
-                  mdi-image-search-outline
-                </v-icon>
-              </v-btn>
-            </template>
-            <span>Search Thingiverse</span>
-          </v-tooltip>
-
-          <v-tooltip bottom>
-            <template v-slot:activator="{ on, attrs }">
-              <v-btn plain icon  class="blue--text text--darken-4">
-                <v-icon light v-bind="attrs" v-on="on"> mdi-cloud-search </v-icon>
-              </v-btn>
-            </template>
-            <span>Search MakeWithTech Model Templates</span>
-          </v-tooltip>
-
-          <v-tooltip bottom>
-            <template v-slot:activator="{ on, attrs }">
-              <v-btn
-                plain
-                icon
-                
-                class="blue--text text--darken-4"
-              >
-                <v-icon light v-bind="attrs" v-on="on">mdi-upload</v-icon>
-              </v-btn>
-            </template>
-            <span>Test an OpenSCAD Model Template</span>
-          </v-tooltip>
-
-          <v-tooltip bottom>
-            <template v-slot:activator="{ on, attrs }">
-              <v-btn plain icon  class="blue--text text--darken-4">
-                <v-icon light v-bind="attrs" v-on="on">
-                  mdi-cloud-upload-outline</v-icon
-                >
-              </v-btn>
-            </template>
-            <span>Share an OpenSCAD Model Template</span>
-          </v-tooltip>
-
-          <v-tooltip bottom>
-            <template v-slot:activator="{ on, attrs }">
-              <v-btn
-                plain
-                icon
-                
-                class="blue--text text--darken-4"
-              >
-                <v-icon light v-bind="attrs" v-on="on">mdi-timer-sand</v-icon>
-              </v-btn>
-            </template>
-            <span>Processing Queue</span>
-          </v-tooltip>
-
-          <v-tooltip bottom>
-            <template v-slot:activator="{ on, attrs }">
-              <v-btn
-                plain
-                icon
-                
-                class="blue--text text--darken-4"
-              >
-                <v-icon light v-bind="attrs" v-on="on">mdi-tray-full</v-icon>
-              </v-btn>
-            </template>
-            <span>OpenSCAD Model Results</span>
-          </v-tooltip>
-
-          <v-tooltip bottom>
-            <template v-slot:activator="{ on, attrs }">
-              <v-btn plain icon  class="blue--text text--darken-4">
-                <v-icon light v-bind="attrs" v-on="on">mdi-account</v-icon>
-              </v-btn>
-            </template>
-            <span>Account (Sign In)</span>
-          </v-tooltip>
-
-          <v-tooltip bottom>
-            <template v-slot:activator="{ on, attrs }">
-              <v-btn plain icon  class="blue--text text--darken-4">
-                <v-icon light v-bind="attrs" v-on="on">mdi-information</v-icon>
-              </v-btn>
-            </template>
-            <span>About MakeWithTech</span>
-          </v-tooltip>
-
-          <v-tooltip bottom>
-            <template v-slot:activator="{ on, attrs }">
-              <v-btn
-                plain
-                icon
-                @click="toggleTheme"
-                class="blue--text text--darken-4"
-              >
-                <v-icon light v-bind="attrs" v-on="on">mdi-brightness-6</v-icon>
-              </v-btn>
-            </template>
-            <span>Toggle Light / Dark</span>
-          </v-tooltip>
-        </div>
-        <v-btn
-        class="px-sm-15"
-        rounded
-        color="secondary"
-        dark
-        :x-large="$vuetify.breakpoint.mdAndUp"
-        :small="$vuetify.breakpoint.xsAndUp"
+  <!-- <v-app id="Models"> -->
+    <div>
+    <v-app-bar height="80px" app>
+      <v-toolbar-title
+        class="indigo--text text--darken-4  pr-4"
+        style="font-family: Lato"
+      >
+        <a
+          :style="{
+            fontSize: '12px',
+            textDecoration: 'none',
+            color: '#030b79',
+          }"
+          href="/"
         >
-          Log In
-        </v-btn>
-      </v-container>
+          <v-img
+            class="pl-2"
+            width="300"
+            src="@/assets/makewithtech900.png"
+          />
+        </a>
+      </v-toolbar-title>
+      <v-spacer />
+
+      <!-- buttons start here -->
+
+      <v-tooltip bottom v-if="!isMobile">
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn icon to="/models" class="indigo--text text--darken-4  mx-2">
+            <v-icon large light v-bind="attrs" v-on="on">
+              mdi-cloud-search
+            </v-icon>
+          </v-btn>
+        </template>
+        <span>Search MakeWithTech Model Templates</span>
+      </v-tooltip>
+
+      <v-tooltip bottom v-if="!isMobile">
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn
+            icon
+            to="/thingiversebrowser"
+            class="indigo--text text--darken-4  mx-2"
+          >
+            <v-icon large light v-bind="attrs" v-on="on">
+              mdi-alpha-t-circle-outline
+            </v-icon>
+          </v-btn>
+        </template>
+        <span>Search Thingiverse</span>
+      </v-tooltip>
+
+      <v-divider vertical />
+
+      <v-tooltip bottom v-if="!isMobile">
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn
+            icon
+            to="/fileupload"
+            class="indigo--text text--darken-4  mx-2"
+          >
+            <v-icon large light v-bind="attrs" v-on="on">mdi-upload</v-icon>
+          </v-btn>
+        </template>
+        <span>Test an OpenSCAD Model Template</span>
+      </v-tooltip>
+
+      <v-tooltip bottom v-if="!isMobile">
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn icon to="/share" class="indigo--text text--darken-4  mx-2">
+            <v-icon large light v-bind="attrs" v-on="on">
+              mdi-cloud-upload-outline</v-icon
+            >
+          </v-btn>
+        </template>
+        <span>Share an OpenSCAD Model Template</span>
+      </v-tooltip>
+
+      <v-divider vertical />
+
+      <v-tooltip bottom v-if="!isMobile">
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn
+            icon
+            to="/listcompilequeue"
+            class="indigo--text text--darken-4  mx-2"
+          >
+            <v-icon light large v-bind="attrs" v-on="on">mdi-timer-sand</v-icon>
+          </v-btn>
+        </template>
+        <span>Processing Queue</span>
+      </v-tooltip>
+
+      <v-tooltip bottom v-if="!isMobile">
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn
+            icon
+            to="/listrenderedmodels"
+            class="indigo--text text--darken-4  mx-2"
+          >
+            <v-icon light large v-bind="attrs" v-on="on">mdi-tray-full</v-icon>
+          </v-btn>
+        </template>
+        <span>OpenSCAD Model Results</span>
+      </v-tooltip>
+
+      <v-divider vertical />
+
+      <v-tooltip bottom v-if="!isMobile">
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn icon to="/account" class="indigo--text text--darken-4  mx-2">
+            <v-icon light large v-bind="attrs" v-on="on">mdi-account</v-icon>
+          </v-btn>
+        </template>
+        <span>Account (Sign In)</span>
+      </v-tooltip>
+
+      <v-tooltip bottom v-if="!isMobile">
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn
+            icon
+            @click="toggleTheme"
+            class="indigo--text text--darken-4 mx-2"
+          >
+            <v-icon light large v-bind="attrs" v-on="on"
+              >mdi-brightness-6</v-icon
+            >
+          </v-btn>
+        </template>
+        <span>Toggle Light / Dark</span>
+      </v-tooltip>
+
+      <v-divider vertical />
+
+      <v-tooltip bottom v-if="!isMobile">
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn
+            icon
+            class="indigo--text text--darken-4  mx-2"
+            href="https://youtube.com/c/makewithtech"
+            target="_blank"
+          >
+            <v-icon light large v-bind="attrs" v-on="on">mdi-video</v-icon>
+          </v-btn>
+        </template>
+        <span>3d Printing Videos and Tutorials</span>
+      </v-tooltip>
+
+      <v-tooltip bottom v-if="!isMobile">
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn icon to="/about" class="indigo--text text--darken-4">
+            <v-icon large light v-bind="attrs" v-on="on"
+              >mdi-information</v-icon
+            >
+          </v-btn>
+        </template>
+        <span>About MakeWithTech</span>
+      </v-tooltip>
+
+      <!-- hamburger icon is only displayed on mobile -->
+      <v-app-bar-nav-icon
+        class="indigo--text text--darken-4  pr-2 mx-2"
+        @click="toggleDrawer"
+        v-if="isMobile"
+      />
     </v-app-bar>
+
+    <!-- navigation drawer -->
 
     <v-navigation-drawer
       v-model="drawer"
       fixed
-      temporary
-      color="bg_light_blue"
+      color="black lighten-2"
+      class="pa-1 text-caption"
     >
-       <v-list class="text-caption">
+      <v-list class="text-caption">
         <v-list-item>
+          <v-list-item-icon>
+            <v-icon class="white--text">mdi-home</v-icon>
+          </v-list-item-icon>
           <v-list-item-content>
             <v-btn
               plain
-              class="justify-start black--text"
+              icon
+              to="/"
+              class="justify-start white--text text-caption"
               @click="drawer = false"
             >
-            <v-icon class="blue--text text--darken-4 me-4" plain>mdi-home</v-icon>
               Home
             </v-btn>
           </v-list-item-content>
         </v-list-item>
         <v-list-item>
+          <v-list-item-icon>
+            <v-icon class="white--text">mdi-video</v-icon>
+          </v-list-item-icon>
           <v-list-item-content>
             <v-btn
               plain
-              class="justify-start black--text"
+              icon
+              class="justify-start white--text text-caption"
               href="https://youtube.com/c/makewithtech"
               target="_blank"
               @click="drawer = false"
             >
-            <v-icon class="blue--text text--darken-4 me-4" plain>mdi-video</v-icon>
               Videos
             </v-btn>
           </v-list-item-content>
         </v-list-item>
         <v-list-item>
+          <v-list-item-icon>
+            <v-icon class="white--text">mdi-image-search-outline</v-icon>
+          </v-list-item-icon>
           <v-list-item-content>
             <v-btn
               plain
-              class="justify-start black--text"
+              icon
+              to="/thingiversebrowser"
+              class="justify-start white--text text-caption"
               @click="drawer = false"
             >
-            <v-icon class="blue--text text--darken-4 me-4" plain>mdi-image-search-outline</v-icon>
               Search Thingiverse
             </v-btn>
           </v-list-item-content>
         </v-list-item>
         <v-list-item>
+          <v-list-item-icon>
+            <v-icon class="white--text">mdi-upload</v-icon>
+          </v-list-item-icon>
           <v-list-item-content>
             <v-btn
               plain
-              class="justify-start black--text"
+              icon
+              to="/fileupload"
+              class="justify-start white--text text-caption"
               @click="drawer = false"
             >
-            <v-icon class="blue--text text--darken-4 me-4" plain>mdi-upload</v-icon>
               Upload
             </v-btn>
           </v-list-item-content>
         </v-list-item>
 
         <v-list-item>
+          <v-list-item-icon>
+            <v-icon class="white--text">mdi-upload</v-icon>
+          </v-list-item-icon>
           <v-list-item-content>
             <v-btn
               plain
-              class="justify-start black--text"
+              icon
+              to="/models"
+              class="justify-start white--text text-caption"
               @click="drawer = false"
             >
-            <v-icon class="blue--text text--darken-4 me-4" plain>mdi-upload</v-icon>
               Search MWT
             </v-btn>
           </v-list-item-content>
         </v-list-item>
 
         <v-list-item>
+          <v-list-item-icon>
+            <v-icon class="white--text">mdi-timer-sand</v-icon>
+          </v-list-item-icon>
           <v-list-item-content>
             <v-btn
               plain
-              class="justify-start black--text"
+              icon
+              to="/listcompilequeue"
+              class="justify-start white--text text-caption"
               @click="drawer = false"
             >
-            <v-icon class="blue--text text--darken-4 me-4" plain>mdi-timer-sand</v-icon>
               Queue
             </v-btn>
           </v-list-item-content>
         </v-list-item>
         <v-list-item>
+          <v-list-item-icon>
+            <v-icon class="white--text">mdi-tray-full</v-icon>
+          </v-list-item-icon>
           <v-list-item-content>
             <v-btn
               plain
-              class="justify-start black--text"
+              icon
+              to="/listrenderedmodels"
+              class="justify-start white--text text-caption"
               @click="drawer = false"
             >
-            <v-icon class="blue--text text--darken-4 me-4" plain>mdi-tray-full</v-icon>
               Results
             </v-btn>
           </v-list-item-content>
         </v-list-item>
         <v-list-item>
+          <v-list-item-icon>
+            <v-icon class="white--text">mdi-account</v-icon>
+          </v-list-item-icon>
           <v-list-item-content>
             <v-btn
               plain
-              class="justify-start black--text"
+              icon
+              to="/account"
+              class="justify-start white--text text-caption"
               @click="drawer = false"
             >
-            <v-icon class="blue--text text--darken-4 me-4" plain>mdi-account</v-icon>
               Account
             </v-btn>
           </v-list-item-content>
         </v-list-item>
         <v-list-item>
+          <v-list-item-icon>
+            <v-icon class="white--text">mdi-information</v-icon>
+          </v-list-item-icon>
           <v-list-item-content>
             <v-btn
               plain
-              class="justify-start black--text"
+              icon
+              to="/about"
+              class="justify-start white--text text-caption"
               @click="drawer = false"
             >
-            <v-icon class="blue--text text--darken-4 me-4" plain>mdi-information</v-icon>
               About
             </v-btn>
           </v-list-item-content>
         </v-list-item>
         <v-list-item>
+          <v-list-item-icon>
+            <v-icon class="white--text">mdi-brightness-6</v-icon>
+          </v-list-item-icon>
           <v-list-item-content>
             <v-btn
               plain
+              icon
               @click="toggleTheme"
-              class="justify-start black--text"
+              class="justify-start white--text text-caption"
             >
-            <v-icon class="blue--text text--darken-4 me-4" plain>mdi-brightness-6</v-icon>
               Theme
             </v-btn>
           </v-list-item-content>
         </v-list-item>
-      </v-list> 
+      </v-list>
     </v-navigation-drawer>
+  <!-- </v-app> -->
   </div>
 </template>
 
@@ -321,6 +350,7 @@
     data: () => ({
       drawer: false,
       group: null,
+      isMobile: false,
     }),
     mounted: async function () {
       let darkTheme = localStorage.getItem("darkTheme");
