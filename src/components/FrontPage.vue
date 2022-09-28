@@ -651,7 +651,7 @@ export default {
       featuredModels: [],
       move: null,
       model: null,
-      heroImage: false,
+      heroImage: true,
     };
   },
     computed: {
