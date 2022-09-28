@@ -48,17 +48,17 @@
               </v-btn>
             </div>
           </v-col>
-          <v-col cols="12" md="6">
-            <!-- <v-img
+          <v-col cols="12" md="6" class="pt-0 mt-0 ml-0 pl-0">
+            <v-img v-if="heroImage == true"
               :class="
                 $vuetify.breakpoint.xs || $vuetify.breakpoint.sm
                   ? ''
                   : 'hero-bg'
               "
-              width="913"
-              src="@/assets/makewithtech_front_page_image.png"
-            ></v-img> -->
-            <div class="d-flex fill-height">
+              width="850"
+              src="@/assets/hero-image-customize.png"
+            ></v-img>
+            <div class="d-flex fill-height" v-if="heroImage == false">
               <video width="100%" autoplay muted class="animated-video">
                 <source src="@/assets/hero-animation.mp4" type="video/mp4">
               </video>
@@ -579,11 +579,16 @@
             </v-card>
           </v-col>
         </v-row>
+        <v-row>
+          <v-col>
+            <v-btn @click="changeImage()">switch hero image</v-btn>
+          </v-col>
+        </v-row>
       </v-container>
     </div>
   </div>
 </template>
-<style>
+<style scoped>
 .v-btn {
   text-transform: capitalize;
 }
@@ -600,6 +605,7 @@
 .v-slide-group__wrapper{
   margin-left: -170px;
 }
+
 @media (min-width: 960px){
   .container {
       max-width: 95%;
@@ -645,6 +651,7 @@ export default {
       featuredModels: [],
       move: null,
       model: null,
+      heroImage: false,
     };
   },
     computed: {
@@ -668,6 +675,9 @@ export default {
     this.makeApiCall();
   },
   methods: {
+    changeImage() {
+      this.heroImage = !this.heroImage;
+    },
     makeApiCall: async function () {
       let response;
       try {
