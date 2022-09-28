@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="overflow-hidden">
-      <v-container class="sec1 py-16 my-16">
+      <v-container class="sec1 py-0">
         <v-row no-gutters>
           <v-col
             cols="12"
@@ -59,7 +59,7 @@
               src="@/assets/makewithtech_front_page_image.png"
             ></v-img> -->
             <div class="d-flex fill-height">
-              <video width="100%" autoplay muted class="animated-video">
+              <video autoplay loop muted class="animated-video">
                 <source src="@/assets/hero-animation.mp4" type="video/mp4">
               </video>
             </div>
@@ -67,12 +67,12 @@
         </v-row>
       </v-container>
     </div>
-    <div class="primary">
-      <v-container fluid class="">
+    <div class="">
+      <v-container fluid class="primary">
         <v-row>
           <v-col>
             <div
-              class="text-h2 white--text font-weight-bold text-center pt-16 my-5"
+              class="text-h2 white--text font-weight-bold text-center pt-16 mt-5"
             >
               Explore Hundreds of
               <span class="secondary--text">Model</span>
@@ -82,68 +82,72 @@
         </v-row>
         <v-row>
           <v-col class="pa-0">
-            <v-carousel height="100%" hide-delimiters primary> 
-              <template v-for="(item, index) in featuredModels"> 
-                <v-carousel-item v-if="(index + 1) % columns === 1 || columns === 1" 
-                :key="index"
-                > 
-                  <v-row class="car-row-parent flex-nowrap" style="height:100%"> 
-                    <template v-for="(n,i) in columns"> 
-                      <template v-if="(+index + i) < featuredModels.length"> 
-                        <v-col lg="4" :key="i"> 
-                          <v-sheet color="primary" v-if="(+index + i) < featuredModels.length"
+            <v-sheet
+              v-touch="{
+                left: () => swipe('Left'),
+                right: () => swipe('Right'),
+                up: () => swipe('Up'),
+                down: () => swipe('Down'),
+              }"
+              class="mx-auto transparent"
+            >
+              <v-slide-group center-active>
+                <v-slide-item
+                  v-for="(slide, n) in featuredModels"
+                  :key="n"
+                  v-slot="{ active, toggle }"
+                >
+                  <v-card
+                    :color="active ? undefined : 'white'"
+                    class="ma-4"
+                    height="527"
+                    width="342"
+                    @click="toggle"
+                  >
+                    <v-row class="fill-height" justify="center">
+                      <v-col class="pa-7">
+                        <v-img :src="slide.url" :alt="slide.author"></v-img>
+                        <div class="">
+                          <div class="text-h5 py-4">
+                            {{ slide.name }}
+                          </div>
+                          <div class="flex">
+                            <v-btn rounded outlined class="py-2 px-3 mr-3">
+                              <v-icon light class="mr-4"
+                                >mdi-heart-outline</v-icon
+                              >
+                              <div class="text-h6">22</div>
+                            </v-btn>
+                            <v-btn rounded outlined class="py-2 px-3">
+                              <v-icon light class="mr-3"
+                                >mdi-chat-processing-outline</v-icon
+                              >
+                              <div class="text-h6">12</div>
+                            </v-btn>
+                          </div>
+                          <v-btn
+                            absolute
+                            bottom
+                            rounded
+                            outlined
+                            color="secondary"
+                            dark
+                            width="90%"
+                            :x-large="$vuetify.breakpoint.mdAndUp"
+                            :small="$vuetify.breakpoint.xsAndUp"
                           >
-                            <v-row class="car-row fill-height"
-                            align="center"
-                            justify="center"
+                            <v-icon light class="mr-3"
+                              >mdi-arrow-collapse-down</v-icon
                             >
-                              <div class="display-3">
-                                <v-card
-                                class="ma-4 d-flex flex-column rounded-xl"
-                                height="527"
-                                width="380"
-                                >
-                                  <v-row class="fill-height" justify="center">
-                                    <v-col class="pa-7">
-                                      <v-img :src="featuredModels[index + i].url" :alt="featuredModels[index + i].author"></v-img>
-                                      <div class="">
-                                        <div class="text-h5 py-4">
-                                          {{ featuredModels[index + i].name }}
-                                        </div>
-                                        <v-btn
-                                        absolute
-                                        bottom
-                                        rounded
-                                        outlined
-                                        color="secondary"
-                                        dark
-                                        width="90%"
-                                        :x-large="$vuetify.breakpoint.mdAndUp"
-                                        :small="$vuetify.breakpoint.xsAndUp"
-                                        >
-                                        <v-icon light class="mr-3"
-                                        >mdi-arrow-collapse-down</v-icon
-                                        >
-                                        Customize
-                                        </v-btn>
-                                      </div>
-                                    </v-col>
-                                  </v-row>
-                                </v-card>
-                              </div>
-                            </v-row>
-                          </v-sheet>
-                        </v-col> 
-                      </template> 
-                    </template> 
-                  </v-row> 
-                </v-carousel-item> 
-              </template> 
-            </v-carousel>
-          </v-col>
-        </v-row>
-        <v-row>
-          <v-col>
+                            Customize
+                          </v-btn>
+                        </div>
+                      </v-col>
+                    </v-row>
+                  </v-card>
+                </v-slide-item>
+              </v-slide-group>
+            </v-sheet>
             <div class="text-center">
               <v-btn
                 class="px-sm-15 ma-10"
@@ -174,7 +178,7 @@
           </v-col>
         </v-row>
         <v-row class="justify-center">
-          <v-col class="d-flex px-7" lg="4" sm="6">
+          <v-col class="d-flex" lg="4" sm="6">
             <v-card
               class="d-flex flex-column px-3 mx-auto text-center pt-10 rounded-xl"
             >
@@ -209,7 +213,7 @@
               </v-btn>
             </v-card>
           </v-col>
-          <v-col class="d-flex px-7" lg="4" sm="6">
+          <v-col class="d-flex" lg="4" sm="6">
             <v-card
               class="d-flex flex-column px-3 mx-auto text-center pt-10 rounded-xl"
             >
@@ -246,7 +250,7 @@
               </v-btn>
             </v-card>
           </v-col>
-          <v-col class="d-flex px-7" lg="4" sm="6">
+          <v-col class="d-flex" lg="4" sm="6">
             <v-card
               class="d-flex flex-column px-3 mx-auto text-center pt-10 rounded-xl"
             >
@@ -437,7 +441,7 @@
           </v-col>
         </v-row>
         <v-row class="justify-center">
-          <v-col class="px-7" lg="4" sm="6" col="12">
+          <v-col class="" lg="4" sm="6" col="12">
             <v-card
               class="d-flex flex-column px-10 mx-auto text-center py-10 bg_light_blue rounded-xl"
               elevation="0"
@@ -484,7 +488,7 @@
               </v-card-subtitle>
             </v-card>
           </v-col>
-          <v-col class="px-7" lg="4" sm="6" col="12">
+          <v-col class="" lg="4" sm="6" col="12">
             <v-card
               class="d-flex flex-column px-10 mx-auto text-center py-10 bg_light_blue rounded-xl"
               elevation="0"
@@ -531,7 +535,7 @@
               </v-card-subtitle>
             </v-card>
           </v-col>
-          <v-col class="px-7" lg="4" sm="6" col="12">
+          <v-col class="" lg="4" sm="6" col="12">
             <v-card
               class="d-flex flex-column px-10 mx-auto text-center py-10 bg_light_blue rounded-xl"
               elevation="0"
@@ -593,6 +597,10 @@
 .w-100 {
   width: 100%;
 }
+.sec1 .row {
+  position: relative;
+  height: 100vh;
+}
 .v-slide-group__next,
 .v-slide-group__prev {
   display: none;
@@ -600,21 +608,12 @@
 .v-slide-group__wrapper{
   margin-left: -170px;
 }
-@media (min-width: 960px){
-  .container {
-      max-width: 95%;
-  }
-  .container--fluid{
-    max-width: 100%;
-  }
-  /* .car-row-parent .col:first-child .car-row{justify-content: end!important;}
-  .car-row-parent .col:last-child .car-row{justify-content: start!important;} */
-}
-@media (min-width: 1904px){
-  .container,
-  .container--fluid {
-      max-width: 1600px;
-  }
+.animated-video{
+  position: absolute;
+  width:48vw;
+  top: 0;
+  bottom: 0;
+  margin: auto;
 }
 @media (max-width: 959px) {
   .v-application .text-h1 {
@@ -628,6 +627,13 @@
   .v-application .text-h6 {
     font-size: 1rem !important;
     line-height: 1.3rem;
+  }
+  .sec1 .row {
+    height: auto;
+  }
+  .animated-video{
+    position: relative;
+    width: 100%;
   }
 }
 @media (max-width: 599px) {
@@ -647,23 +653,7 @@ export default {
       model: null,
     };
   },
-    computed: {
-    columns() {
-      if (this.$vuetify.breakpoint.xl) {
-        return 4;
-      }
 
-      if (this.$vuetify.breakpoint.lg) {
-        return 3;
-      }
-
-      if (this.$vuetify.breakpoint.md) {
-        return 2;
-      }
-
-      return 1;
-    }
-  },
   mounted: async function () {
     this.makeApiCall();
   },
@@ -672,7 +662,7 @@ export default {
       let response;
       try {
         response = await axios.get(
-          "https://lecbphglwh6xkuk2664swj4mvi0mghms.lambda-url.us-east-1.on.aws/v1/models/featured"
+          "https://z4mbar3xtwbqlr4gazjr7w7aga0qgnwn.lambda-url.us-east-1.on.aws/v1/models/featured"
         );
       } catch (error) {
         console.log("axios get failed: ", error);
