@@ -680,9 +680,11 @@ export default {
     },
     makeApiCall: async function () {
       let response;
+      let url = "https://564ngtvmxi.execute-api.us-east-1.amazonaws.com/prod/v1/models/featured";  //  cached
+      // let url = "https://lecbphglwh6xkuk2664swj4mvi0mghms.lambda-url.us-east-1.on.aws/v1/models/featured";  // uncached
       try {
         response = await axios.get(
-          "https://lecbphglwh6xkuk2664swj4mvi0mghms.lambda-url.us-east-1.on.aws/v1/models/featured"
+          url
         );
       } catch (error) {
         console.log("axios get failed: ", error);
