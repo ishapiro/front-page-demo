@@ -1,12 +1,12 @@
 <template>
   <div>
     <div class="overflow-hidden">
-      <v-container class="sec1 py-16 my-16">
+      <v-container class="sec1 pt-8 mt-8 mb-8 pb-8">
         <v-row no-gutters>
           <v-col
             cols="12"
-            md="6"
-            class="align-self-center text-center text-sm-left py-16 py-md-0"
+            md="5"
+            class="align-self-center text-center text-sm-left pt-5 pb-15 mb-15 py-md-0"
           >
             <div class="text-h1 primary--text font-weight-bold">
               Finally.
@@ -48,7 +48,7 @@
               </v-btn>
             </div>
           </v-col>
-          <v-col cols="12" md="6" class="pt-0 mt-0 ml-0 pl-0">
+          <v-col cols="12" md="7" class="pt-0 mt-0 ml-0 pl-0">
             <v-img v-if="heroImage == true"
               :class="
                 $vuetify.breakpoint.xs || $vuetify.breakpoint.sm
@@ -56,7 +56,7 @@
                   : 'hero-bg'
               "
               width="850"
-              src="@/assets/hero-image-customize.png"
+              src="@/assets/select-customize-v2.png"
             ></v-img>
             <div class="d-flex fill-height" v-if="heroImage == false">
               <video width="100%" autoplay muted class="animated-video">
