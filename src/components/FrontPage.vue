@@ -56,7 +56,7 @@
                   : 'hero-bg'
               "
               width="850"
-              src="@/assets/select-customize-v2.png"
+              src="@/assets/select-customize-v3.png"
             ></v-img>
             <div class="d-flex fill-height" v-if="heroImage == false">
               <video width="100%" autoplay muted class="animated-video">
