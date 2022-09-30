@@ -1,12 +1,12 @@
 <template>
   <div>
     <div class="overflow-hidden">
-      <v-container class="sec1 py-md-16 mb-10 my-md-10">
-        <v-row no-gutters class="align-center">
+      <v-container class="sec1 pt-8 mt-8 mb-8 pb-8">
+        <v-row no-gutters>
           <v-col
             cols="12"
-            md="6"
-            class="align-self-center text-center text-sm-left py-16 py-md-0"
+            md="5"
+            class="align-self-center text-center text-sm-left pt-5 pb-15 mb-15 py-md-0"
           >
             <div class="text-h1 primary--text font-weight-bold">
               Finally.
@@ -48,16 +48,21 @@
               </v-btn>
             </div>
           </v-col>
-          <v-col cols="12" md="6">
-            <v-img
-              max-width="913"
-              src="@/assets/hero-image.jpg"
+          <v-col cols="12" md="7" class="pt-0 mt-0 ml-0 pl-0">
+            <v-img v-if="heroImage == true"
+              :class="
+                $vuetify.breakpoint.xs || $vuetify.breakpoint.sm
+                  ? ''
+                  : 'hero-bg'
+              "
+              width="850"
+              src="@/assets/select-customize-v5.jpg"
             ></v-img>
-            <!-- <div class="d-flex fill-height">
+            <div class="d-flex fill-height" v-if="heroImage == false">
               <video width="100%" autoplay muted class="animated-video">
                 <source src="@/assets/hero-animation.mp4" type="video/mp4">
               </video>
-            </div> -->
+            </div>
           </v-col>
         </v-row>
       </v-container>
@@ -77,16 +82,14 @@
         </v-row>
         <v-row>
           <v-col class="pa-0">
-            <v-carousel height="100%" hide-delimiters primary cus-car> 
+            <v-carousel height="100%" hide-delimiters primary> 
               <template v-for="(item, index) in featuredModels"> 
-                <v-carousel-item v-if="(index + 1) % 1 === 1 || 1 === 1"
+                <v-carousel-item v-if="(index + 1) % columns === 1 || columns === 1" 
                 :key="index"
-                reverse-transition="new-transition"
-                transition="new-transition"
                 > 
                   <v-row class="car-row-parent flex-nowrap" style="height:100%"> 
                     <template v-for="(n,i) in columns"> 
-                      <template v-if="(+1 + i) < featuredModels.length"> 
+                      <template v-if="(+index + i) < featuredModels.length"> 
                         <v-col lg="4" :key="i"> 
                           <v-sheet color="primary" v-if="(+index + i) < featuredModels.length"
                           >
@@ -97,14 +100,12 @@
                               <div class="display-3">
                                 <v-card
                                 class="ma-4 d-flex flex-column rounded-xl"
-                                height="450"
+                                height="527"
                                 width="380"
                                 >
                                   <v-row class="fill-height" justify="center">
                                     <v-col class="pa-7">
-                                      <v-img :src="featuredModels[index + i].url" :alt="featuredModels[index + i].author"
-                                      height="250"
-                                      ></v-img>
+                                      <v-img :src="featuredModels[index + i].url" :alt="featuredModels[index + i].author"></v-img>
                                       <div class="">
                                         <div class="text-h5 py-4">
                                           {{ featuredModels[index + i].name }}
@@ -578,11 +579,16 @@
             </v-card>
           </v-col>
         </v-row>
+        <v-row>
+          <v-col>
+            <v-btn @click="changeImage()">switch hero image</v-btn>
+          </v-col>
+        </v-row>
       </v-container>
     </div>
   </div>
 </template>
-<style>
+<style scoped>
 .v-btn {
   text-transform: capitalize;
 }
@@ -592,16 +598,14 @@
 .w-100 {
   width: 100%;
 }
-.v-card__title{
-  word-break:break-word;
-}
-.cus-car .v-slide-group__next,
-.cus-car .v-slide-group__prev {
+.v-slide-group__next,
+.v-slide-group__prev {
   display: none;
 }
-.cus-car .v-slide-group__wrapper{
+.v-slide-group__wrapper{
   margin-left: -170px;
 }
+
 @media (min-width: 960px){
   .container {
       max-width: 95%;
@@ -639,7 +643,6 @@
 }
 </style>
 <script>
-import { createSimpleTransition } from 'vuetify/lib/components/transitions/createTransition';
 import axios from "axios";
 export default {
   name: "FrontPage",
@@ -648,6 +651,7 @@ export default {
       featuredModels: [],
       move: null,
       model: null,
+      heroImage: true,
     };
   },
     computed: {
@@ -668,19 +672,19 @@ export default {
     }
   },
   mounted: async function () {
-    this.makeApiCall()
-    const newTransition = createSimpleTransition('new-transition');
-        this.$once("hook:components", () => {
-            newTransition
-        })
-
+    this.makeApiCall();
   },
   methods: {
+    changeImage() {
+      this.heroImage = !this.heroImage;
+    },
     makeApiCall: async function () {
       let response;
+      let url = "https://564ngtvmxi.execute-api.us-east-1.amazonaws.com/prod/v1/models/featured";  //  cached
+      // let url = "https://lecbphglwh6xkuk2664swj4mvi0mghms.lambda-url.us-east-1.on.aws/v1/models/featured";  // uncached
       try {
         response = await axios.get(
-          "https://564ngtvmxi.execute-api.us-east-1.amazonaws.com/prod/v1/models/featured"
+          url
         );
       } catch (error) {
         console.log("axios get failed: ", error);
