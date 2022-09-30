@@ -1,9 +1,9 @@
 <template>
   <!-- <v-app id="Models"> -->
-    <div>
+  <div>
     <v-app-bar height="80px" app>
       <v-toolbar-title
-        class="indigo--text text--darken-4  pr-4"
+        class="indigo--text text--darken-4 pr-4"
         style="font-family: Lato"
       >
         <a
@@ -14,20 +14,22 @@
           }"
           href="/"
         >
-          <v-img
-            class="pl-2"
-            width="300"
-            src="@/assets/makewithtech900.png"
-          />
+          <v-img class="pl-2" width="300" src="@/assets/makewithtech900.png" />
         </a>
       </v-toolbar-title>
+      <v-spacer v-if="isMobile"/>
+      <div class="d-flex d-md-none pr-0 mr-0">
+        <v-app-bar-nav-icon class="black--text" @click="drawer = true">
+          <v-icon light> mdi-text </v-icon>
+        </v-app-bar-nav-icon>
+      </div>
       <v-spacer />
 
       <!-- buttons start here -->
 
       <v-tooltip bottom v-if="!isMobile">
         <template v-slot:activator="{ on, attrs }">
-          <v-btn icon to="/models" class="indigo--text text--darken-4  mx-2">
+          <v-btn icon to="/models" class="indigo--text text--darken-4 mx-2">
             <v-icon large light v-bind="attrs" v-on="on">
               mdi-cloud-search
             </v-icon>
@@ -41,7 +43,7 @@
           <v-btn
             icon
             to="/thingiversebrowser"
-            class="indigo--text text--darken-4  mx-2"
+            class="indigo--text text--darken-4 mx-2"
           >
             <v-icon large light v-bind="attrs" v-on="on">
               mdi-alpha-t-circle-outline
@@ -51,15 +53,11 @@
         <span>Search Thingiverse</span>
       </v-tooltip>
 
-      <v-divider vertical />
+      <v-divider vertical v-if="!isMobile" />
 
       <v-tooltip bottom v-if="!isMobile">
         <template v-slot:activator="{ on, attrs }">
-          <v-btn
-            icon
-            to="/fileupload"
-            class="indigo--text text--darken-4  mx-2"
-          >
+          <v-btn icon to="/fileupload" class="indigo--text text--darken-4 mx-2">
             <v-icon large light v-bind="attrs" v-on="on">mdi-upload</v-icon>
           </v-btn>
         </template>
@@ -68,7 +66,7 @@
 
       <v-tooltip bottom v-if="!isMobile">
         <template v-slot:activator="{ on, attrs }">
-          <v-btn icon to="/share" class="indigo--text text--darken-4  mx-2">
+          <v-btn icon to="/share" class="indigo--text text--darken-4 mx-2">
             <v-icon large light v-bind="attrs" v-on="on">
               mdi-cloud-upload-outline</v-icon
             >
@@ -77,14 +75,14 @@
         <span>Share an OpenSCAD Model Template</span>
       </v-tooltip>
 
-      <v-divider vertical />
+      <v-divider vertical v-if="!isMobile" />
 
       <v-tooltip bottom v-if="!isMobile">
         <template v-slot:activator="{ on, attrs }">
           <v-btn
             icon
             to="/listcompilequeue"
-            class="indigo--text text--darken-4  mx-2"
+            class="indigo--text text--darken-4 mx-2"
           >
             <v-icon light large v-bind="attrs" v-on="on">mdi-timer-sand</v-icon>
           </v-btn>
@@ -97,7 +95,7 @@
           <v-btn
             icon
             to="/listrenderedmodels"
-            class="indigo--text text--darken-4  mx-2"
+            class="indigo--text text--darken-4 mx-2"
           >
             <v-icon light large v-bind="attrs" v-on="on">mdi-tray-full</v-icon>
           </v-btn>
@@ -105,11 +103,11 @@
         <span>OpenSCAD Model Results</span>
       </v-tooltip>
 
-      <v-divider vertical />
+      <v-divider vertical v-if="!isMobile" />
 
       <v-tooltip bottom v-if="!isMobile">
         <template v-slot:activator="{ on, attrs }">
-          <v-btn icon to="/account" class="indigo--text text--darken-4  mx-2">
+          <v-btn icon to="/account" class="indigo--text text--darken-4 mx-2">
             <v-icon light large v-bind="attrs" v-on="on">mdi-account</v-icon>
           </v-btn>
         </template>
@@ -131,13 +129,13 @@
         <span>Toggle Light / Dark</span>
       </v-tooltip>
 
-      <v-divider vertical />
+      <v-divider vertical v-if="!isMobile" />
 
       <v-tooltip bottom v-if="!isMobile">
         <template v-slot:activator="{ on, attrs }">
           <v-btn
             icon
-            class="indigo--text text--darken-4  mx-2"
+            class="indigo--text text--darken-4 mx-2"
             href="https://youtube.com/c/makewithtech"
             target="_blank"
           >
@@ -157,13 +155,6 @@
         </template>
         <span>About MakeWithTech</span>
       </v-tooltip>
-
-      <!-- hamburger icon is only displayed on mobile -->
-      <v-app-bar-nav-icon
-        class="indigo--text text--darken-4  pr-2 mx-2"
-        @click="toggleDrawer"
-        v-if="isMobile"
-      />
     </v-app-bar>
 
     <!-- navigation drawer -->
@@ -339,36 +330,57 @@
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
-  <!-- </v-app> -->
+    <!-- </v-app> -->
   </div>
 </template>
 
 <script>
-  export default {
-    name:"FrontHeader",
-  
-    data: () => ({
-      drawer: false,
-      group: null,
-      isMobile: false,
-    }),
-    mounted: async function () {
-      let darkTheme = localStorage.getItem("darkTheme");
-      if (darkTheme === "yes") {
-        console.log("Setting theme to dark");
-        this.$vuetify.theme.dark = true;
+export default {
+  name: "FrontHeader",
+
+  data: () => ({
+    drawer: false,
+    group: null,
+    isMobile: false,
+  }),
+  mounted: async function () {
+    let darkTheme = localStorage.getItem("darkTheme");
+    if (darkTheme === "yes") {
+      console.log("Setting theme to dark");
+      this.$vuetify.theme.dark = true;
+    }
+    if (
+      /Android|webOS|iPhone|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+        navigator.userAgent
+      ) ||
+      window.innerWidth < 901
+    ) {
+      this.isMobile = true;
+    } else {
+      this.isMobile = false;
+    }
+    // Attaching the event listener function to window's resize event
+    window.addEventListener("resize", this.displayWindowSize);
+  },
+  methods: {
+    displayWindowSize: function () {
+      // Get width and height of the window excluding scrollbars
+      var w = document.documentElement.clientWidth;
+      if (w < 901) {
+        this.isMobile = true;
+      } else {
+        this.isMobile = false;
       }
     },
-    methods: {
-      toggleTheme: function () {
-        this.drawer = false;
-        this.$vuetify.theme.dark = !this.$vuetify.theme.dark;
-        if (this.$vuetify.theme.dark) {
-          localStorage.setItem("darkTheme", "yes");
-        } else {
-          localStorage.setItem("darkTheme", "no");
-        }
-      },
+    toggleTheme: function () {
+      this.drawer = false;
+      this.$vuetify.theme.dark = !this.$vuetify.theme.dark;
+      if (this.$vuetify.theme.dark) {
+        localStorage.setItem("darkTheme", "yes");
+      } else {
+        localStorage.setItem("darkTheme", "no");
+      }
     },
-  };
-  </script>
+  },
+};
+</script>
