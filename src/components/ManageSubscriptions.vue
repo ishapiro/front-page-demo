@@ -28,6 +28,7 @@
           rounded
           color="primary"
           dark
+          target="_blank"
           href="https://subscriptions.zoho.com/portal/makewithtechtest"
           :x-large="$vuetify.breakpoint.mdAndUp"
           :small="$vuetify.breakpoint.xsAndUp"
