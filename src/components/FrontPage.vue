@@ -350,6 +350,7 @@
                     rounded
                     color="primary"
                     dark
+                    to="/manage-subscriptions"
                     :x-large="$vuetify.breakpoint.mdAndUp"
                     :small="$vuetify.breakpoint.xsAndUp"
                   >
@@ -362,7 +363,6 @@
                   class="d-flex flex-column w-100 justify-space-between px-3 mx-auto text-center pt-10 rounded-xl"
                 >
                   <v-card-title class="text-h6 justify-center font-weight-bold">
-                    FREE
                   </v-card-title>
 
                   <div class="text-h2 font-weight-black">
@@ -409,6 +409,7 @@
                     rounded
                     color="primary"
                     dark
+                    to="/manage-subscriptions"
                     :x-large="$vuetify.breakpoint.mdAndUp"
                     :small="$vuetify.breakpoint.xsAndUp"
                   >

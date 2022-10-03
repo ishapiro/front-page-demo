@@ -5,6 +5,7 @@ import BecomeACreator from '../components/BecomeACreator.vue'
 import BecomeAMember from '../components/BecomeAMember.vue'
 import Customize3DModels from '../components/Customize3dModels.vue'
 import SellYour3dModels from '../components/SellYour3dModels.vue'
+import ManageSubscriptions from '../components/ManageSubscriptions.vue'
 
 
 Vue.use(VueRouter)
@@ -31,6 +32,10 @@ const routes = [
     path: '/sell-your-3d-models',
     name: 'SellModels',
     component: SellYour3dModels
+  }, {
+    path: '/manage-subscriptions',
+    name: 'ManageSubscriptions',
+    component: ManageSubscriptions
   }
 ]
 
