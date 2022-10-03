@@ -353,7 +353,7 @@
                     :x-large="$vuetify.breakpoint.mdAndUp"
                     :small="$vuetify.breakpoint.xsAndUp"
                   >
-                    Subscribe Now
+                    Free Forever
                   </v-btn>
                 </v-card>
               </v-col>
@@ -362,7 +362,7 @@
                   class="d-flex flex-column w-100 justify-space-between px-3 mx-auto text-center pt-10 rounded-xl"
                 >
                   <v-card-title class="text-h6 justify-center font-weight-bold">
-                    FREE
+                    Monthly and Annual Subscriptions
                   </v-card-title>
 
                   <div class="text-h2 font-weight-black">
@@ -408,6 +408,7 @@
                     class="px-15 ma-10"
                     rounded
                     color="primary"
+                    to="/manage-subscriptions"
                     dark
                     :x-large="$vuetify.breakpoint.mdAndUp"
                     :small="$vuetify.breakpoint.xsAndUp"
