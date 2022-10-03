@@ -6,7 +6,7 @@
           <v-col
             cols="12"
             md="6"
-            class="align-self-center text-center text-sm-left py-16 py-md-0"
+            class="align-self-center text-center text-md-left py-16 py-md-0"
           >
             <div class="text-h1 primary--text font-weight-bold">
               Finally.
@@ -98,7 +98,7 @@
                                 <v-card
                                 class="ma-4 d-flex flex-column rounded-xl"
                                 height="450"
-                                width="380"
+                                :width="$vuetify.breakpoint.xs ? 300 : 380"
                                 >
                                   <v-row class="fill-height" justify="center">
                                     <v-col class="pa-7">
@@ -353,7 +353,7 @@
                     :x-large="$vuetify.breakpoint.mdAndUp"
                     :small="$vuetify.breakpoint.xsAndUp"
                   >
-                    Included
+                    Subscribe Now
                   </v-btn>
                 </v-card>
               </v-col>
@@ -362,7 +362,7 @@
                   class="d-flex flex-column w-100 justify-space-between px-3 mx-auto text-center pt-10 rounded-xl"
                 >
                   <v-card-title class="text-h6 justify-center font-weight-bold">
-                    Month and Annual Subscriptions
+                    FREE
                   </v-card-title>
 
                   <div class="text-h2 font-weight-black">
@@ -377,7 +377,7 @@
                   <div class="cus-list text-start py-5 mx-auto">
                     <div class="d-flex">
                       <v-icon class="me-4 secondary--text">mdi-check</v-icon>
-                      <div class="text-h6">Everything in Free</div>
+                      <div class="text-h6">Everything is Free</div>
                     </div>
                     <div class="d-flex">
                       <v-icon class="me-4 secondary--text">mdi-check</v-icon>
@@ -409,7 +409,6 @@
                     rounded
                     color="primary"
                     dark
-                    to="/manage-subscriptions"
                     :x-large="$vuetify.breakpoint.mdAndUp"
                     :small="$vuetify.breakpoint.xsAndUp"
                   >
