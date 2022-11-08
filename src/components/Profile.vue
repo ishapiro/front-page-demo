@@ -1,48 +1,6 @@
 <template>
-  <div class="account-page pb-16">
+  <div class="profile-page pb-16">
     <v-container class="">
-      <v-row>
-        <v-col
-        cols="12"
-        md="7"
-        class="align-self-center text-center text-md-left"
-        >
-          <div
-            class="text-h3 primary--text font-weight-bold text-center text-sm-left pb-8"
-          >
-            Free Basic Plans
-            <div class="secondary--text font-weight-bold text-h4 mt-3">Forever</div>
-          </div>
-          <div class="text-h6">
-            Sign up for a free basic plan and gain access to model template customization and output file generation. Generate STL and 3MF files for 3D Printers and SVG and DXF files for Laser Engravers/Cutters and CNC Routers.
-            
-            <div class="my-8">Already a member, sign in with your existing username.</div>
-          </div>
-          <v-img
-              max-width="913"
-              src="@/assets/account-hero-img.png"
-            ></v-img>
-        </v-col>
-        <v-col
-        cols="12"
-        md="5"
-        >
-          <!-- <amplify-authenticator>
-            <div v-if="authState === 'signedin' && user">
-              <div>Hello, {{ user.username }}</div>
-            </div>
-            <amplify-sign-out></amplify-sign-out>
-          </amplify-authenticator> -->
-          <template>
-          <amplify-authenticator>
-            <div>
-              My App
-              <amplify-sign-out></amplify-sign-out>
-            </div>
-          </amplify-authenticator>
-          </template>
-        </v-col>
-      </v-row>
       <v-row>
         <v-col>
           <div
@@ -64,8 +22,8 @@
   </div>
 </template>
 <style>
-.account-page{
-  background: url('@/assets/bg.jpg') no-repeat center center / cover;
+.profile-page{
+  background: url('@/assets/bg-profile.png') no-repeat center center / cover;
   background-size: cover;
 }
 </style>

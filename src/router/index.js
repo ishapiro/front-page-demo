@@ -2,6 +2,7 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import FrontPage from "../components/FrontPage.vue";
 import Account from "../components/Account.vue";
+import Profile from "../components/Profile.vue";
 import BecomeACreator from "../components/BecomeACreator.vue";
 import BecomeAMember from "../components/BecomeAMember.vue";
 import Customize3DModels from "../components/Customize3dModels.vue";
@@ -20,6 +21,11 @@ const routes = [
     path: "/account",
     name: "Account",
     component: Account,
+  },
+  {
+    path: "/profile",
+    name: "Profile",
+    component: Profile,
   },
   {
     path: "/become-a-creator",
