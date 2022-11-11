@@ -35,12 +35,12 @@
           </amplify-authenticator> -->
           <template>
           <amplify-authenticator>
-            <amplify-sign-in header-text="My Custom Sign In Header" slot="sign-in" />
+            <amplify-sign-in header-text="Sign in to your account" slot="sign-in" />
             <div>
               My App
               <amplify-sign-out></amplify-sign-out>
             </div>
-            <amplify-sign-up header-text="My Custom Sign In Header" slot="sign-up" have-account-text="Already have an account?" submit-button-text="Sign up" />
+            <amplify-sign-up header-text="Create a new account" slot="sign-up" have-account-text="Already have an account?" submit-button-text="Sign up" />
           </amplify-authenticator>
           </template>
         </v-col>
@@ -70,16 +70,6 @@
   background: url('@/assets/bg.jpg') no-repeat center center / cover;
   background-size: cover;
 }
-@media (min-width: 672px){
-.sign-in-form-footer{
-    display: flex;
-    flex-direction: column-reverse !important;
-    align-items: center !important;
-    justify-content: space-around !important;
-}
-}
-.form-section-header .header{color:#fff}
-section.section{background: #000}
 </style>
 <script>
 import { onAuthUIStateChange } from "@aws-amplify/ui-components";
