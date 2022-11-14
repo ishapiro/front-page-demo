@@ -214,7 +214,8 @@
         cols="12"
         class="d-flex"
         >
-          <v-btn 
+          <v-btn
+            href="https://models.makewithtech.com/manage-subscriptions/" 
             x-large
             class="primary white--text mx-auto mt-16 mb-8"
           >
