@@ -43,7 +43,11 @@
             <amplify-sign-up header-text="Create a new account" slot="sign-up" have-account-text="Already have an account?" submit-button-text="Sign up" />
           </amplify-authenticator>
           </template> -->
-          <v-card elevation="5" class="px-14">
+          <v-card 
+            elevation="5" 
+            git class="px-14"
+            rounded-xl
+          >
             <v-form  v-model="valid">
               <v-row  class=" mt-16">
                 <v-col

@@ -43,7 +43,11 @@
             <amplify-sign-up header-text="Create a new account" slot="sign-up" have-account-text="Already have an account?" submit-button-text="Sign up" />
           </amplify-authenticator>
           </template> -->
-          <v-card elevation="5" class="px-14">
+          <v-card 
+            elevation="5" 
+            class="px-14"
+            rounded-xl
+          >
             <v-form  v-model="valid">
               <v-row  class=" mt-16">
                 <v-col
@@ -95,7 +99,7 @@
                     outlined
                   ></v-text-field>
                   <div 
-                    class="black--text text-left"
+                    class="text-subtitle-1 black--text text-left pb-2"
                   >
                     Forgot Your Password?
                     <router-link 
@@ -114,12 +118,12 @@
                   <v-btn 
                     block
                     x-large
-                    class="secondary white--text"
+                    class="text-subtitle-1 secondary white--text"
                   >
                     SIGN IN
                   </v-btn>
                   <div 
-                  class="black--text py-2"
+                  class="text-subtitle-1 black--text pt-6 pb-8"
                   >
                   Dont have an account? 
                     <router-link 
