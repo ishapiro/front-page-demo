@@ -8,6 +8,7 @@ import BecomeAMember from "../components/BecomeAMember.vue";
 import Customize3DModels from "../components/Customize3dModels.vue";
 import SellYour3dModels from "../components/SellYour3dModels.vue";
 import ManageSubscriptions from "../components/ManageSubscriptions.vue";
+import  SignIn  from "../components/SignIn.vue";
 
 Vue.use(VueRouter);
 
@@ -51,6 +52,11 @@ const routes = [
     path: "/manage-subscriptions",
     name: "ManageSubscriptions",
     component: ManageSubscriptions,
+  },
+  {
+    path: "/Sign-In",
+    name: "SignIn",
+    component: SignIn,
   },
 ];
 
