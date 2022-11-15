@@ -1,7 +1,7 @@
 <template>
   <div class="account-page pb-16">
     <v-container class="">
-      <v-row>
+      <v-row class="py-10">
         <v-col
         cols="12"
         md="7"
@@ -45,11 +45,11 @@
           </template> -->
           <v-card 
             elevation="5" 
-            git class="px-14"
+            class="px-14"
             rounded-xl
           >
             <v-form  v-model="valid">
-              <v-row  class=" mt-16">
+              <v-row  class="mt-16">
                 <v-col
                   cols="12"
                   class="align-self-center text-center text-md-left"

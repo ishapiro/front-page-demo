@@ -9,6 +9,7 @@ import Customize3DModels from "../components/Customize3dModels.vue";
 import SellYour3dModels from "../components/SellYour3dModels.vue";
 import ManageSubscriptions from "../components/ManageSubscriptions.vue";
 import  SignIn  from "../components/SignIn.vue";
+import ResetPassword from "../components/ResetPassword.vue";
 
 Vue.use(VueRouter);
 
@@ -57,6 +58,11 @@ const routes = [
     path: "/Sign-In",
     name: "SignIn",
     component: SignIn,
+  },
+  {
+    path: "/Reset-Password",
+    name: "ResetPassword",
+    component: ResetPassword,
   },
 ];
 

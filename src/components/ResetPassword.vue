@@ -1,7 +1,7 @@
 <template>
   <div class="account-page pb-16">
     <v-container class="">
-      <v-row class="py-10">
+      <v-row class="py-8">
         <v-col
         cols="12"
         md="7"
@@ -58,7 +58,7 @@
                     class="text-h3 primary--text text-center font-weight-bold pt-10"
                   >
                     Account Management
-                    <div class="black--text font-weight-bold text-h4 mt-3">Sign in to your account</div>
+                    <div class="black--text font-weight-bold text-h4 mt-3">Reset your password</div>
                   </div>
                 </v-col>
                 <v-col
@@ -68,12 +68,12 @@
                   <div
                     class="text-h6 font-weight-bold text-center text-sm-left pb-2"
                   >
-                    Username * 
+                    Verification code
                   </div>
                   <v-text-field
                     v-model="username"
                     :rules="nameRules"
-                    label="Enter your username..."
+                    label="Enter code"
                     outlined
                   ></v-text-field>
                 </v-col>
@@ -84,7 +84,7 @@
                   <div
                     class="text-h6 font-weight-bold text-center text-sm-left pb-2"
                   >
-                    Password *
+                    New password
                   </div>
                   <v-text-field
                     v-model="password"
@@ -92,24 +92,12 @@
                     :rules="[rules.required, rules.min]"
                     :type="show1 ? 'text' : 'password'"
                     name="input-pass"
-                    label="Enter your password..."
+                    label="Enter your nwe password"
                     hint="At least 8 characters"
                     counter
                     @click:append="show1 = !show1"
                     outlined
                   ></v-text-field>
-                  <div 
-                    class="text-subtitle-1 black--text text-left pb-2"
-                  >
-                    Forgot Your Password?
-                    <router-link 
-                      to="/Reset-Password"
-                      plain
-                      class="secondary--text text-decoration-none"
-                    >
-                      Reset Password
-                    </router-link>
-                  </div>
                 </v-col>
                 <v-col 
                 cols="12"
@@ -120,18 +108,17 @@
                     x-large
                     class="text-subtitle-1 secondary white--text"
                   >
-                    SIGN IN
+                    SUBMIT
                   </v-btn>
                   <div 
                   class="text-subtitle-1 black--text pt-6 pb-8"
-                  >
-                  Dont have an account? 
+                  > 
                     <router-link 
-                      to="/account"
+                      to="/Sign-In"
                       plain
                       class="secondary--text text-decoration-none"
                     >
-                    Create Account
+                    Back to Sign in
                     </router-link>
                   </div>                  
                 </v-col>
