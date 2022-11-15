@@ -33,12 +33,14 @@
             <amplify-sign-up header-text="Create a new account" slot="sign-up" have-account-text="Already have an account?" submit-button-text="Sign up" />
           </amplify-authenticator> -->
           </template>
-          <v-btn @click="signOut">Sign Out</v-btn>
           <div v-if="authState === 'signedin' && user">
             {{ user.username }}
+            <v-btn @click="signOut">Sign Out</v-btn>
           </div>
           <template v-else>
-            <signInVue />
+            <signInVue v-if="tab == 'signin'" @changeTab="tab = $event"/>
+            <Signup v-if="tab == 'signup'" @changeTab="tab = $event"/>
+            <Forgotpassword v-if="tab == 'forgot'" @changeTab="tab = $event"/>
           </template>
         </v-col>
       </v-row>
@@ -84,12 +86,16 @@
   import {
     Auth, Hub
   } from "aws-amplify";
+import Forgotpassword from "./auth/forgotpassword.vue";
   import signInVue from './auth/sign-in.vue'
+import Signup from "./auth/signup.vue";
   export default {
     name: "AuthStateApp",
     components: {
-      signInVue
-  },
+    signInVue,
+    Signup,
+    Forgotpassword
+},
  
   created() {
       this.listenToAutoSignInEvent();
@@ -98,9 +104,10 @@
         this.user = authData;
         console.log(authState);
       });
-      Auth.currentSession().then((res) => {
+      Auth.currentUserInfo().then((res) => {
         console.log(res,'Helelo');
-
+        this.authState = 'signedin';
+        this.user = res;
       }).catch(err => {
         console.log(err);
       })
@@ -134,6 +141,7 @@
         unsubscribeAuth: undefined,
         show1: false,
         password: 'Password',
+        tab:'signin',
         rules: {
           required: value => !!value || 'Required.'
         }

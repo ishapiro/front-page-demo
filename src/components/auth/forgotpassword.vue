@@ -5,7 +5,7 @@
                 <v-col cols="12" class="align-self-center text-center text-md-left">
                     <div class="text-h3 primary--text text-center font-weight-bold pt-10">
                         Account Management
-                        <div class="black--text font-weight-bold text-h4 mt-3">Sign in to your account
+                        <div class="black--text font-weight-bold text-h4 mt-3">Reset your password
                         </div>
                     </div>
                 </v-col>
@@ -16,28 +16,14 @@
                     <v-text-field v-model="username" label="Enter your username..." outlined>
                     </v-text-field>
                 </v-col>
-                <v-col cols="12" class="py-0">
-                    <div class="text-h6 font-weight-bold text-center text-sm-left pb-2">
-                        Password *
-                    </div>
-                    <v-text-field v-model="password" :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
-                        :type="show1 ? 'text' : 'password'" name="input-pass" label="Enter your password..."
-                          @click:append="show1 = !show1" outlined></v-text-field>
-                    <div class="text-subtitle-1 black--text text-left pb-2">
-                        Forgot Your Password?
-                        <v-btn link @click="$emit('changeTab','forgot')" plain class="secondary--text text-decoration-none">
-                            Reset Password
-                        </v-btn>
-                    </div>
-                </v-col>
                 <v-col cols="12" class="text-center">
                     <v-btn block x-large type="submit" class="text-subtitle-1 secondary white--text">
-                        SIGN IN
+                        Send Code
                     </v-btn>
                     <div class="text-subtitle-1 black--text pt-6 pb-8">
                         Dont have an account?
-                        <v-btn link @click="$emit('changeTab','signup')" plain class="secondary--text text-decoration-none">
-                            Create Account
+                        <v-btn link @click="$emit('changeTab','signin')" plain class="secondary--text text-decoration-none">
+                            Back to sign in
                         </v-btn>
                     </div>
                 </v-col>
@@ -60,7 +46,7 @@
     } from "aws-amplify";
 
     export default {
-        name: "SignIn",
+        name: "ForgotPassword",
         created() {
             this.unsubscribeAuth = onAuthUIStateChange((authState, authData) => {
                 this.authState = authState;
