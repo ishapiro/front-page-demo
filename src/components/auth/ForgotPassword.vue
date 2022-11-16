@@ -71,7 +71,10 @@
                             this.$emit('changeTab', 'reset-password');
                             console.log('Code sent successfully',result);
                         })
-                        .catch(err => console.log(err));
+                        .catch(err => {
+                            this.loading = false;
+                            console.log(err)
+                        });
                 } catch (error) {
                     this.loading = false;
                     console.log("error signing in", error);

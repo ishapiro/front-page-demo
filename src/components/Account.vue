@@ -43,7 +43,7 @@
             <Signup v-if="tab == 'signup'" @changeTab="tab = $event" @email="email =  $event"/>
             <ConfirmSignup v-if="tab == 'confirm-signup'" :email="email" @changeTab="tab = $event"/>
             <Forgotpassword v-if="tab == 'forgot'" @changeTab="tab = $event" :email="email"/>
-            <ResetPassword v-if="tab == 'reset-password'" :email="email"/>
+            <ResetPassword v-if="tab == 'reset-password'" :email="email" @changeTab="tab = $event"/>
           </template>
         </v-col>
       </v-row>
