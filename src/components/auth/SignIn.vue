@@ -95,11 +95,13 @@
                 }
                 this.loading = true;
                 try {
-                    const user = await Auth.signIn(this.username, this.password);
-                    await this.$refs.form.reset()
+                    /* const user =  */
+                    await Auth.signIn(this.username, this.password);
                     this.loading = false;
-                    this.$emit('authState', 'signedin');
-                    this.$emit('user', user);
+                    await this.$refs.form.reset()
+                    this.$router.push({ path: 'profile' }).then(() => { }).catch(() => { });
+                    // this.$emit('authState', 'signedin');
+                    // this.$emit('user', user);
                 } catch (error) {
                     this.loading = false;
                     this.$root.$emit('alert-message', error.message);

@@ -80,7 +80,8 @@
         this.loading = true;
         try {
           await Auth.confirmSignUp(this.username, this.code);
-          this.$emit('changeTab', 'signin');
+          // this.$emit('changeTab', 'signin');
+          this.$router.push({ path: 'profile' }).then(() => { }).catch(() => { });
           this.loading = false;
         } catch (error) {
           this.loading = false;
