@@ -8,8 +8,6 @@ import BecomeAMember from "../components/BecomeAMember.vue";
 import Customize3DModels from "../components/Customize3dModels.vue";
 import SellYour3dModels from "../components/SellYour3dModels.vue";
 import ManageSubscriptions from "../components/ManageSubscriptions.vue";
-import ResetPassword from "../components/ResetPassword.vue";
-
 Vue.use(VueRouter);
 
 const routes = [
@@ -52,12 +50,7 @@ const routes = [
     path: "/manage-subscriptions",
     name: "ManageSubscriptions",
     component: ManageSubscriptions,
-  },
-  {
-    path: "/Reset-Password",
-    name: "ResetPassword",
-    component: ResetPassword,
-  },
+  }
 ];
 
 const router = new VueRouter({

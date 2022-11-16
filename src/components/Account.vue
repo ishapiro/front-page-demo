@@ -42,6 +42,8 @@
             <Signup v-if="tab == 'signup'" @changeTab="tab = $event"/>
             <Forgotpassword v-if="tab == 'forgot'" @changeTab="tab = $event"/>
           </template>
+          <ResetPassword />
+          <ConfirmSignup />
         </v-col>
       </v-row>
       <v-row>
@@ -86,7 +88,9 @@
   import {
     Auth, Hub
   } from "aws-amplify";
+import ConfirmSignup from "./auth/confirmSignup.vue";
 import Forgotpassword from "./auth/forgotpassword.vue";
+import ResetPassword from "./auth/ResetPassword.vue";
   import signInVue from './auth/sign-in.vue'
 import Signup from "./auth/signup.vue";
   export default {
@@ -94,7 +98,9 @@ import Signup from "./auth/signup.vue";
     components: {
     signInVue,
     Signup,
-    Forgotpassword
+    Forgotpassword,
+    ResetPassword,
+    ConfirmSignup
 },
  
   created() {
