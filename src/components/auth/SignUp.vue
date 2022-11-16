@@ -121,7 +121,7 @@
                     console.log(user);
                 } catch (error) {
                     this.loading = false;
-                    console.log('error signing up:', error);
+                    this.$root.$emit('alert-message', error.message);
                 }
             }
         }

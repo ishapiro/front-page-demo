@@ -81,7 +81,7 @@
           this.loading = false;
         } catch (error) {
           this.loading = false;
-          console.log('error confirming sign up', error);
+          this.$root.$emit('alert-message', error.message);
         }
       },
       async resendConfirmationCode() {
@@ -92,7 +92,7 @@
           await Auth.resendSignUp(this.username);
           console.log('code resent successfully');
         } catch (err) {
-          console.log('error resending code: ', err);
+          this.$root.$emit('alert-message', err.message);
         }
       }
     },

@@ -63,22 +63,18 @@
                     return;
                 }
                 this.loading = true;
-                try {
-                    await Auth.forgotPassword(this.username)
-                    .then((result) => {
-                            this.loading = false;
-                            this.$emit('email', this.username);
-                            this.$emit('changeTab', 'reset-password');
-                            console.log('Code sent successfully',result);
-                        })
-                        .catch(error => {
-                            this.loading = false;
-                            this.$root.$emit('alert-message', error.message);
-                        });
-                } catch (error) {
-                    this.loading = false;
-                    this.$root.$emit('alert-message', error.message);
-                }
+                await Auth.forgotPassword(this.username)
+                .then((result) => {
+                        this.loading = false;
+                        this.$emit('email', this.username);
+                        this.$emit('changeTab', 'reset-password');
+                        console.log('Code sent successfully',result);
+                    })
+                    .catch(error => {
+                        this.loading = false;
+                        this.$root.$emit('alert-message', error.message);
+                    });
+                
             }
         }
     };

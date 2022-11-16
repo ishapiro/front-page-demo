@@ -71,14 +71,14 @@
         }
         this.loading = true;
         await Auth.forgotPasswordSubmit(this.username, this.code, this.new_password)
-        .then((result) => {
+        .then(() => {
             this.loading = false;
             this.$emit('changeTab', 'signin');
-            console.log(result)
           })
           .catch(err => {
             this.loading = false;
-            console.log(err)
+            this.$root.$emit('alert-message', err.message);
+
           });
       }
     }
