@@ -35,15 +35,16 @@
           </template>
           <div v-if="authState === 'signedin' && user">
             {{ user.username }}
-            <v-btn @click="signOut">Sign Out</v-btn>
+            <v-btn :loading="signOutLoading" @click="signOut">Sign Out</v-btn>
           </div>
           <template v-else>
-            <signInVue v-if="tab == 'signin'" @changeTab="tab = $event"/>
-            <Signup v-if="tab == 'signup'" @changeTab="tab = $event"/>
-            <Forgotpassword v-if="tab == 'forgot'" @changeTab="tab = $event"/>
+            <signInVue v-if="tab == 'signin'" @user="user = $event" @authState="authState = $event"
+              @changeTab="tab = $event" />
+            <Signup v-if="tab == 'signup'" @changeTab="tab = $event" />
+            <ConfirmSignup v-if="tab == 'confirm-signup'" />
+            <Forgotpassword v-if="tab == 'forgot'" @changeTab="tab = $event" />
+            <ResetPassword v-if="tab == 'reset-password'" />
           </template>
-          <ResetPassword />
-          <ConfirmSignup />
         </v-col>
       </v-row>
       <v-row>
@@ -83,62 +84,21 @@
 </style>
 <script>
   import {
-    onAuthUIStateChange
-  } from "@aws-amplify/ui-components";
-  import {
-    Auth, Hub
+    Auth
   } from "aws-amplify";
-import ConfirmSignup from "./auth/confirmSignup.vue";
-import Forgotpassword from "./auth/forgotpassword.vue";
-import ResetPassword from "./auth/ResetPassword.vue";
-  import signInVue from './auth/sign-in.vue'
-import Signup from "./auth/signup.vue";
+  import ConfirmSignup from "./auth/ConfirmSignUp";
+  import Forgotpassword from "./auth/ForgotPassword";
+  import ResetPassword from "./auth/ResetPassword.vue";
+  import signInVue from './auth/SignIn'
+  import Signup from "./auth/SignUp";
   export default {
     name: "AuthStateApp",
     components: {
-    signInVue,
-    Signup,
-    Forgotpassword,
-    ResetPassword,
-    ConfirmSignup
-},
- 
-  created() {
-      this.listenToAutoSignInEvent();
-      this.unsubscribeAuth = onAuthUIStateChange((authState, authData) => {
-        this.authState = authState;
-        this.user = authData;
-        console.log(authState);
-      });
-      Auth.currentUserInfo().then((res) => {
-        console.log(res,'Helelo');
-        this.authState = 'signedin';
-        this.user = res;
-      }).catch(err => {
-        console.log(err);
-      })
-    },
-    methods: {
-      async signOut() {
-        try {
-          await Auth.signOut();
-        } catch (error) {
-          console.log('error signing out: ', error);
-        }
-      },
-      listenToAutoSignInEvent() {
-        Hub.listen('auth', ({ payload }) => {
-            const { event } = payload;
-            if (event === 'autoSignIn') {
-                const user = payload.data;
-                // assign user
-                console.log(user,'Yameen');
-            } else if (event === 'autoSignIn_failure') {
-                // redirect to sign in page
-              console.log('Logout');
-            }
-        })
-    }
+      signInVue,
+      Signup,
+      Forgotpassword,
+      ResetPassword,
+      ConfirmSignup
     },
     data() {
       return {
@@ -147,12 +107,35 @@ import Signup from "./auth/signup.vue";
         unsubscribeAuth: undefined,
         show1: false,
         password: 'Password',
-        tab:'signin',
-        rules: {
-          required: value => !!value || 'Required.'
-        }
+        tab: 'signin',
+        signOutLoading: false,
       };
     },
+    created() {
+      Auth.currentUserInfo().then((res) => {
+        console.log(res, 'Helelo');
+        this.authState = 'signedin';
+        this.user = res;
+      }).catch(err => {
+        console.log(err);
+      })
+    },
+    methods: {
+      async signOut() {
+        this.signOutLoading = true;
+        try {
+          await Auth.signOut();
+          this.authState = '';
+          this.user = null;
+          this.tab = 'signin'
+          this.signOutLoading = false;
+        } catch (error) {
+          this.signOutLoading = false;
+          console.log('error signing out: ', error);
+        }
+      }
+    },
+
     beforeDestroy() {
       this.unsubscribeAuth();
     },

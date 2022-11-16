@@ -13,7 +13,7 @@
                     <div class="text-h6 font-weight-bold text-center text-sm-left pb-2">
                         Username *
                     </div>
-                    <v-text-field v-model="username" label="Enter your username..." outlined>
+                    <v-text-field v-model="username" :rules="userNameRules" label="Enter your username..." outlined>
                     </v-text-field>
                 </v-col>
                 <v-col cols="12" class="py-0">
@@ -61,7 +61,7 @@
     } from "aws-amplify";
 
     export default {
-        name: "SignUp",
+        name: "SignUpPage",
         created() {
             this.unsubscribeAuth = onAuthUIStateChange((authState, authData) => {
                 this.authState = authState;
@@ -78,9 +78,9 @@
                 username: '',
                 password: '',
                 email: '',
-                rules: {
-                    required: value => !!value || 'Required.'
-                }
+                userNameRules: [
+                    v => !!v || 'Username field is required',
+                ],
             };
         },
         beforeDestroy() {

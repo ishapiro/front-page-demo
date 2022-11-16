@@ -46,7 +46,7 @@
     } from "@aws-amplify/ui-components";
   
     export default {
-      name: "ConfirmSignUp",
+      name: "ConfirmSignup",
       created() {
         this.unsubscribeAuth = onAuthUIStateChange((authState, authData) => {
           this.authState = authState;

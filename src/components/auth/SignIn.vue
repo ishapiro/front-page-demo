@@ -1,6 +1,6 @@
 <template>
     <v-card elevation="5" class="px-14" rounded-xl>
-        <v-form v-model="valid" @submit.prevent="signIn">
+        <v-form ref="form" v-model="valid" @submit.prevent="signIn" lazy-validation>
             <v-row class=" mt-16">
                 <v-col cols="12" class="align-self-center text-center text-md-left">
                     <div class="text-h3 primary--text text-center font-weight-bold pt-10">
@@ -13,14 +13,14 @@
                     <div class="text-h6 font-weight-bold text-center text-sm-left pb-2">
                         Username *
                     </div>
-                    <v-text-field v-model="username" label="Enter your username..." outlined>
+                    <v-text-field :rules="userNameRules" v-model="username" label="Enter your username..." outlined>
                     </v-text-field>
                 </v-col>
                 <v-col cols="12" class="py-0">
                     <div class="text-h6 font-weight-bold text-center text-sm-left pb-2">
                         Password *
                     </div>
-                    <v-text-field v-model="password" :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+                    <v-text-field :rules="userPasswordRules" v-model="password" :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
                         :type="show1 ? 'text' : 'password'" name="input-pass" label="Enter your password..."
                           @click:append="show1 = !show1" outlined></v-text-field>
                     <div class="text-subtitle-1 black--text text-left pb-2">
@@ -31,12 +31,12 @@
                     </div>
                 </v-col>
                 <v-col cols="12" class="text-center">
-                    <v-btn block x-large type="submit" class="text-subtitle-1 secondary white--text">
+                    <v-btn :loading="loading" :disabled="loading" block x-large type="submit" class="text-subtitle-1 secondary white--text">
                         SIGN IN
                     </v-btn>
                     <div class="text-subtitle-1 black--text pt-6 pb-8">
                         Dont have an account?
-                        <v-btn link @click="$emit('changeTab','signup')" plain class="secondary--text text-decoration-none">
+                        <v-btn  link @click="$emit('changeTab','signup')" plain class="secondary--text text-decoration-none">
                             Create Account
                         </v-btn>
                     </div>
@@ -70,15 +70,19 @@
         data() {
             return {
                 valid: true,
+                loading: false,
                 user: undefined,
                 authState: undefined,
                 unsubscribeAuth: undefined,
                 show1: false,
                 username: '',
                 password: '',
-                rules: {
-                    required: value => !!value || 'Required.'
-                }
+                userNameRules: [
+                    v => !!v || 'Username field is required',
+                ],
+                userPasswordRules: [
+                    v => !!v || 'Password field is required',
+                ],
             };
         },
         beforeDestroy() {
@@ -86,10 +90,18 @@
         },
         methods: {
             async signIn() {
+                if (!this.$refs.form.validate()) { 
+                    return;
+                }
+                this.loading = true;
                 try {
                     const user = await Auth.signIn(this.username, this.password);
-                    console.log(user);
+                    await this.$refs.form.reset()
+                    this.loading = false;
+                    this.$emit('authState', 'signedin');
+                    this.$emit('user', user);
                 } catch (error) {
+                    this.loading = false;
                     console.log('error signing in', error);
                 }
             }
