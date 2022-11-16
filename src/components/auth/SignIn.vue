@@ -36,7 +36,7 @@
                     </v-btn>
                     <div class="text-subtitle-1 black--text pt-6 pb-8">
                         Dont have an account?
-                        <v-btn  link @click="$emit('changeTab','signup')" plain class="secondary--text text-decoration-none">
+                        <v-btn type="button" @click="$emit('changeTab','signup')" plain class="secondary--text text-decoration-none">
                             Create Account
                         </v-btn>
                     </div>
@@ -102,7 +102,7 @@
                     this.$emit('user', user);
                 } catch (error) {
                     this.loading = false;
-                    console.log('error signing in', error);
+                    this.$root.$emit('alert-message', error.message);
                 }
             }
         }

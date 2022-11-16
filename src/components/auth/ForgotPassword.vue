@@ -71,13 +71,13 @@
                             this.$emit('changeTab', 'reset-password');
                             console.log('Code sent successfully',result);
                         })
-                        .catch(err => {
+                        .catch(error => {
                             this.loading = false;
-                            console.log(err)
+                            this.$root.$emit('alert-message', error.message);
                         });
                 } catch (error) {
                     this.loading = false;
-                    console.log("error signing in", error);
+                    this.$root.$emit('alert-message', error.message);
                 }
             }
         }

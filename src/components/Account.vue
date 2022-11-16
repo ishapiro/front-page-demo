@@ -1,7 +1,14 @@
 <template>
   <div class="account-page pb-16">
+    <v-alert
+    dismissible
+    v-if="isMessage"
+      type="error"
+    >
+    {{message}}
+    </v-alert>      
     <v-container class="">
-      <v-row>
+    <v-row>
         <v-col cols="12" md="7" class="align-self-center text-center text-md-left">
           <div class="text-h3 primary--text font-weight-bold text-center text-sm-left pb-8">
             Free Basic Plans
@@ -38,8 +45,7 @@
             <v-btn :loading="signOutLoading" @click="signOut">Sign Out</v-btn>
           </div>
           <template v-else>
-            <signInVue v-if="tab == 'signin'" @user="user = $event" @authState="authState = $event"
-              @changeTab="tab = $event" />
+            <signInVue v-if="tab == 'signin'" @user="user = $event" @authState="authState = $event" @changeTab="tab = $event" />
             <Signup v-if="tab == 'signup'" @changeTab="tab = $event" @email="email =  $event"/>
             <ConfirmSignup v-if="tab == 'confirm-signup'" :email="email" @changeTab="tab = $event"/>
             <Forgotpassword v-if="tab == 'forgot'" @changeTab="tab = $event" :email="email"/>
@@ -103,6 +109,8 @@
     data() {
       return {
         user: undefined,
+        isMessage:false,
+        message:'',
         authState: undefined,
         unsubscribeAuth: undefined,
         show1: false,
@@ -113,6 +121,10 @@
       };
     },
   async created() {
+    this.$root.$on('alert-message', ($event) => {
+      this.isMessage = !!$event;
+      this.message = $event;
+    });
     // let user = await Auth.currentAuthenticatedUser();
 
     // const { attributes } = user;

@@ -19,8 +19,7 @@
             New password
           </div>
           <v-text-field v-model="new_password" :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'" :rules="passwordRules"
-            :type="show1 ? 'text' : 'password'" name="input-pass" label="Enter your new password"
-            hint="At least 8 characters" @click:append="show1 = !show1" outlined></v-text-field>
+            :type="show1 ? 'text' : 'password'" name="input-pass" label="Enter your new password" @click:append="show1 = !show1" outlined></v-text-field>
         </v-col>
         <v-col cols="12" class="text-center">
           <v-btn type="submit" :loading="loading" :disabled="loading" block x-large
@@ -28,9 +27,9 @@
             SUBMIT
           </v-btn>
           <div class="text-subtitle-1 black--text pt-6 pb-8">
-            <router-link to="/Sign-In" plain class="secondary--text text-decoration-none">
+            <v-btn type="button" @click="$emit('changeTab','signin')" plain class="secondary--text text-decoration-none">
               Back to Sign in
-            </router-link>
+            </v-btn>
           </div>
         </v-col>
       </v-row>
@@ -52,6 +51,7 @@
     data() {
       return {
         show1: false,
+        valid: true,
         loading: false,
         new_password: '',
         username: this.email,

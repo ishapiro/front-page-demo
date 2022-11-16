@@ -21,8 +21,7 @@
                         Password *
                     </div>
                     <v-text-field v-model="password" :rules="userPasswordRules" :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
-                        :type="show1 ? 'text' : 'password'" name="input-pass" label="Enter your password..."
-                        hint="At least 8 characters"  @click:append="show1 = !show1" outlined></v-text-field>
+                        :type="show1 ? 'text' : 'password'" name="input-pass" label="Enter your password..." @click:append="show1 = !show1" outlined></v-text-field>
                 </v-col>
                 <v-col cols="12" class="pb-0">
                     <div class="text-h6 font-weight-bold text-center text-sm-left pb-2">
