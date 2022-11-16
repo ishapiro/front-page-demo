@@ -64,10 +64,12 @@
                 }
                 this.loading = true;
                 await Auth.forgotPassword(this.username)
-                .then((result) => {
+                .then(async (result) => {
                         this.loading = false;
-                        this.$emit('email', this.username);
-                        this.$emit('changeTab', 'reset-password');
+                    await this.$emit('changeTab', {
+                        tab: 'reset-password',
+                        email: this.username
+                    });
                         console.log('Code sent successfully',result);
                     })
                     .catch(error => {

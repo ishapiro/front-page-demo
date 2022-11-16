@@ -1,14 +1,10 @@
 <template>
   <div class="account-page pb-16">
-    <v-alert
-    dismissible
-    v-if="isMessage"
-      type="error"
-    >
-    {{message}}
-    </v-alert>      
+    <v-alert dismissible v-if="isMessage" type="error">
+      {{message}}
+    </v-alert>
     <v-container class="">
-    <v-row>
+      <v-row>
         <v-col cols="12" md="7" class="align-self-center text-center text-md-left">
           <div class="text-h3 primary--text font-weight-bold text-center text-sm-left pb-8">
             Free Basic Plans
@@ -30,7 +26,7 @@
             </div>
             <amplify-sign-out></amplify-sign-out>
           </amplify-authenticator> -->
-          <template>
+          <template v-if="isrender">
             <!-- <amplify-authenticator>
             <amplify-sign-in header-text="Sign in to your account" slot="sign-in" />
             <div>
@@ -39,17 +35,18 @@
             </div>
             <amplify-sign-up header-text="Create a new account" slot="sign-up" have-account-text="Already have an account?" submit-button-text="Sign up" />
           </amplify-authenticator> -->
-          </template>
-          <div v-if="authState === 'signedin' && user">
-            {{ user.username }}
-            <v-btn :loading="signOutLoading" @click="signOut">Sign Out</v-btn>
-          </div>
-          <template v-else>
-            <signInVue v-if="tab == 'signin'" @user="user = $event" @authState="authState = $event" @changeTab="tab = $event" />
-            <Signup v-if="tab == 'signup'" @changeTab="tab = $event" @email="email =  $event"/>
-            <ConfirmSignup v-if="tab == 'confirm-signup'" :email="email" @changeTab="tab = $event"/>
-            <Forgotpassword v-if="tab == 'forgot'" @changeTab="tab = $event" :email="email"/>
-            <ResetPassword v-if="tab == 'reset-password'" :email="email" @changeTab="tab = $event"/>
+            <div v-if="authState === 'signedin' && user">
+              {{ user.username }}
+              <v-btn :loading="signOutLoading" @click="signOut">Sign Out</v-btn>
+            </div>
+            <template v-else>
+              <signInVue v-if="tab == 'signin'" @user="user = $event" @authState="authState = $event"
+                @changeTab="tab = $event" />
+              <Signup v-if="tab == 'signup'" @changeTab="tab = $event" @email="email =  $event" />
+              <ConfirmSignup v-if="tab == 'confirm-signup'" :email="email" @changeTab="tab = $event" />
+              <Forgotpassword v-if="tab == 'forgot'" @changeTab="tab = $event.tab;email = $event.email" />
+              <ResetPassword v-if="tab == 'reset-password'" :email="email" @changeTab="tab = $event" />
+            </template>
           </template>
         </v-col>
       </v-row>
@@ -109,8 +106,9 @@
     data() {
       return {
         user: undefined,
-        isMessage:false,
-        message:'',
+        isMessage: false,
+        message: '',
+        isrender:false,
         authState: undefined,
         unsubscribeAuth: undefined,
         show1: false,
@@ -120,34 +118,36 @@
         signOutLoading: false,
       };
     },
-  async created() {
-    this.$root.$on('alert-message', ($event) => {
-      this.isMessage = !!$event;
-      this.message = $event;
-    });
-    // let user = await Auth.currentAuthenticatedUser();
-
-    // const { attributes } = user;
-      Auth.currentUserInfo().then((res) => {
+    async mounted() {
+      await Auth.currentAuthenticatedUser({
+          bypassCache: false // Optional, By default is false. If set to true, this call will send a request to Cognito to get the latest user data
+      }).then(user => {
+        this.isrender = true;
         this.authState = 'signedin';
-        this.user = res;
-      }).catch(err => {
-        console.log(err.response);
-      })
+        this.user = user;
+      }).catch(() => {
+        this.isrender = true;
+      });
+
+      this.$root.$on('alert-message', ($event) => {
+        this.isMessage = !!$event;
+        this.message = $event;
+      });
     },
     methods: {
       async signOut() {
         this.signOutLoading = true;
         try {
-          await Auth.signOut({ global: true });
+          await Auth.signOut({
+            global: true
+          });
           this.authState = '';
           this.user = null;
           this.tab = 'signin'
           this.signOutLoading = false;
         } catch (error) {
           this.signOutLoading = false;
-          console.log('error signing out: ', error);
-        }
+          this.$root.$emit('alert-message', error.message);        }
       }
     }
   };
