@@ -1,6 +1,6 @@
 <template>
     <v-card elevation="5" class="px-14" rounded-xl>
-        <v-form v-model="valid" @submit.prevent="signUp">
+        <v-form ref="form" v-model="valid" @submit.prevent="signUp">
             <v-row class=" mt-16">
                 <v-col cols="12" class="align-self-center text-center text-md-left">
                     <div class="text-h3 primary--text text-center font-weight-bold pt-10">
@@ -20,7 +20,7 @@
                     <div class="text-h6 font-weight-bold text-center text-sm-left pb-2">
                         Password *
                     </div>
-                    <v-text-field v-model="password" :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+                    <v-text-field v-model="password" :rules="userPasswordRules" :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
                         :type="show1 ? 'text' : 'password'" name="input-pass" label="Enter your password..."
                         hint="At least 8 characters"  @click:append="show1 = !show1" outlined></v-text-field>
                 </v-col>
@@ -28,11 +28,11 @@
                     <div class="text-h6 font-weight-bold text-center text-sm-left pb-2">
                         The verification/confirmation code is sent to this address  *
                     </div>
-                    <v-text-field v-model="email" label="Enter your username..." outlined>
+                    <v-text-field v-model="email" :rules="userEmailRules" label="Enter your username..." outlined>
                     </v-text-field>
                 </v-col>
                 <v-col cols="12" class="text-center">
-                    <v-btn block x-large type="submit" class="text-subtitle-1 secondary white--text">
+                    <v-btn :loading="loading" :disabled="loading" block x-large type="submit" class="text-subtitle-1 secondary white--text">
                         SIGN UP
                     </v-btn>
                     <div class="text-subtitle-1 black--text pt-6 pb-8">
@@ -70,6 +70,7 @@
         },
         data() {
             return {
+                loading:false,
                 valid: true,
                 user: undefined,
                 authState: undefined,
@@ -81,6 +82,13 @@
                 userNameRules: [
                     v => !!v || 'Username field is required',
                 ],
+                userPasswordRules: [
+                    v => !!v || 'Password field is required',
+                ],
+                userEmailRules: [
+                    v => !!v || 'Email field is required',
+                    v => /.+@.+\..+/.test(v) || 'E-mail must be valid',
+                ],
             };
         },
         beforeDestroy() {
@@ -88,6 +96,11 @@
         },
         methods: {
             async signUp() {
+                if (!this.$refs.form.validate()) { 
+                    return;
+                }
+                this.loading = true;
+                
                 try {
                     const {
                         user
@@ -103,8 +116,12 @@
                             enabled: true,
                         }
                     });
+                    this.loading = false;
+                    this.$emit('email', this.username);
+                    this.$emit('changeTab', 'confirm-signup');
                     console.log(user);
                 } catch (error) {
+                    this.loading = false;
                     console.log('error signing up:', error);
                 }
             }

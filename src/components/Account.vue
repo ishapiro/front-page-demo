@@ -40,10 +40,10 @@
           <template v-else>
             <signInVue v-if="tab == 'signin'" @user="user = $event" @authState="authState = $event"
               @changeTab="tab = $event" />
-            <Signup v-if="tab == 'signup'" @changeTab="tab = $event" />
-            <ConfirmSignup v-if="tab == 'confirm-signup'" />
-            <Forgotpassword v-if="tab == 'forgot'" @changeTab="tab = $event" />
-            <ResetPassword v-if="tab == 'reset-password'" />
+            <Signup v-if="tab == 'signup'" @changeTab="tab = $event" @email="email =  $event"/>
+            <ConfirmSignup v-if="tab == 'confirm-signup'" :email="email" @changeTab="tab = $event"/>
+            <Forgotpassword v-if="tab == 'forgot'" @changeTab="tab = $event" :email="email"/>
+            <ResetPassword v-if="tab == 'reset-password'" :email="email"/>
           </template>
         </v-col>
       </v-row>
@@ -108,23 +108,26 @@
         show1: false,
         password: 'Password',
         tab: 'signin',
+        email: '',
         signOutLoading: false,
       };
     },
-    created() {
+  async created() {
+    // let user = await Auth.currentAuthenticatedUser();
+
+    // const { attributes } = user;
       Auth.currentUserInfo().then((res) => {
-        console.log(res, 'Helelo');
         this.authState = 'signedin';
         this.user = res;
       }).catch(err => {
-        console.log(err);
+        console.log(err.response);
       })
     },
     methods: {
       async signOut() {
         this.signOutLoading = true;
         try {
-          await Auth.signOut();
+          await Auth.signOut({ global: true });
           this.authState = '';
           this.user = null;
           this.tab = 'signin'
@@ -134,10 +137,6 @@
           console.log('error signing out: ', error);
         }
       }
-    },
-
-    beforeDestroy() {
-      this.unsubscribeAuth();
-    },
+    }
   };
 </script>
