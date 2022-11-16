@@ -23,9 +23,12 @@
         </v-col>
 
         <v-col cols="12" class="pb-0">
-          <div class="text-h6 font-weight-bold text-center text-sm-left pb-2">
-            <v-btn type="button" link @click="resendConfirmationCode">Resend code</v-btn>
+          <div class="text-subtitle-1 font-weight-bold text-center text-sm-left pb-2">
+            <a @click="resendConfirmationCode" href="javascript:void(0)" class="secondary--text text-decoration-none">
+                            Resend code
+                        </a>
           </div>
+          
         </v-col>
 
         <v-col cols="12" class="text-center">
