@@ -1,5 +1,5 @@
 <template>
-        <v-card elevation="5" class="px-14" rounded-xl>
+        <v-card elevation="5" class="px-14 rounded-xl">
             <v-form v-model="valid" ref="form" @submit.prevent="submitForgot" lazy-validation>
                 <v-row class=" mt-16">
                     <v-col cols="12" class="align-self-center text-center text-md-left">
@@ -10,7 +10,7 @@
                         </div>
                     </v-col>
                     <v-col cols="12" class="pb-0">
-                        <div class="text-h6 font-weight-bold text-center text-sm-left pb-2">
+                        <div class="text-subtitle-1 font-weight-bold text-center text-sm-left pb-2">
                             Username *
                         </div>
                         <v-text-field v-model="username" :rules="userNameRules" label="Enter your username..." outlined>
@@ -23,10 +23,12 @@
                         </v-btn>
                         <div class="text-subtitle-1 black--text pt-6 pb-8">
                             Dont have an account?
-                            <v-btn link @click="$emit('changeTab','signin')" plain
-                                class="secondary--text text-decoration-none">
+                            <a @click="$emit('changeTab',{
+                        tab: 'signin',
+                        email: ''
+                    })" href="javascript:void(0)" class="secondary--text text-decoration-none">
                                 Back to sign in
-                            </v-btn>
+                            </a>
                         </div>
                     </v-col>
                 </v-row>

@@ -1,5 +1,5 @@
 <template>
-    <v-card elevation="5" class="px-14" rounded-xl>
+    <v-card elevation="5" class="px-14 rounded-xl">
         <v-form ref="form" v-model="valid" @submit.prevent="signUp">
             <v-row class=" mt-16">
                 <v-col cols="12" class="align-self-center text-center text-md-left">
@@ -10,21 +10,21 @@
                     </div>
                 </v-col>
                 <v-col cols="12" class="pb-0">
-                    <div class="text-h6 font-weight-bold text-center text-sm-left pb-2">
+                    <div class="text-subtitle-1 font-weight-bold text-center text-sm-left pb-2">
                         Username *
                     </div>
                     <v-text-field v-model="username" :rules="userNameRules" label="Enter your username..." outlined>
                     </v-text-field>
                 </v-col>
                 <v-col cols="12" class="py-0">
-                    <div class="text-h6 font-weight-bold text-center text-sm-left pb-2">
+                    <div class="text-subtitle-1 font-weight-bold text-center text-sm-left pb-2">
                         Password *
                     </div>
                     <v-text-field v-model="password" :rules="userPasswordRules" :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
                         :type="show1 ? 'text' : 'password'" name="input-pass" label="Enter your password..." @click:append="show1 = !show1" outlined></v-text-field>
                 </v-col>
                 <v-col cols="12" class="pb-0">
-                    <div class="text-h6 font-weight-bold text-center text-sm-left pb-2">
+                    <div class="text-subtitle-1 font-weight-bold text-center text-sm-left pb-2">
                         The verification/confirmation code is sent to this address  *
                     </div>
                     <v-text-field v-model="email" :rules="userEmailRules" label="Enter your username..." outlined>
@@ -36,9 +36,9 @@
                     </v-btn>
                     <div class="text-subtitle-1 black--text pt-6 pb-8">
                         Already have an account?
-                        <v-btn link @click="$emit('changeTab','signin')"  plain class="secondary--text text-decoration-none">
+                        <a link @click="$emit('changeTab','signin')" href="javascript:void(0)" class="secondary--text text-decoration-none">
                             Sign in
-                        </v-btn>
+                        </a>
                     </div>
                 </v-col>
             </v-row>
