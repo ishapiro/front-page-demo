@@ -1,0 +1,56 @@
+{
+  "providers": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-frontpagedemo-frontend-82011-authRole",
+      "UnauthRoleArn": "arn:aws:iam::771845507544:role/amplify-frontpagedemo-frontend-82011-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::771845507544:role/amplify-frontpagedemo-frontend-82011-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-frontpagedemo-frontend-82011-deployment",
+      "UnauthRoleName": "amplify-frontpagedemo-frontend-82011-unauthRole",
+      "StackName": "amplify-frontpagedemo-frontend-82011",
+      "StackId": "arn:aws:cloudformation:us-east-1:771845507544:stack/amplify-frontpagedemo-frontend-82011/c8cbd4b0-65b9-11ed-9655-0eb9d2ab0837",
+      "AmplifyAppId": "dtmqwh2hsiygx"
+    }
+  },
+  "auth": {
+    "frontpagedemod95a5a92": {
+      "service": "Cognito",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [],
+      "customAuth": false,
+      "frontendAuthConfig": {
+        "socialProviders": [],
+        "usernameAttributes": [],
+        "signupAttributes": [
+          "EMAIL"
+        ],
+        "passwordProtectionSettings": {
+          "passwordPolicyMinLength": 8,
+          "passwordPolicyCharacters": []
+        },
+        "mfaConfiguration": "OFF",
+        "mfaTypes": [
+          "SMS"
+        ],
+        "verificationMechanisms": [
+          "EMAIL"
+        ]
+      },
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-frontpagedemo-frontend-82011-deployment/amplify-cfn-templates/auth/frontpagedemod95a5a92-cloudformation-template.json",
+        "logicalId": "authfrontpagedemod95a5a92"
+      },
+      "lastPushTimeStamp": "2022-11-16T14:28:46.672Z",
+      "output": {
+        "UserPoolId": "us-east-1_jqE1bdaF1",
+        "AppClientIDWeb": "7qheeg3ata6s8c806t29sbflid",
+        "AppClientID": "1u3stfati3g4s8oq7risik8vm2",
+        "IdentityPoolId": "us-east-1:0134581d-ff50-4750-85f0-53e18a0ca842",
+        "UserPoolArn": "arn:aws:cognito-idp:us-east-1:771845507544:userpool/us-east-1_jqE1bdaF1",
+        "IdentityPoolName": "frontpagedemod95a5a92_identitypool_d95a5a92__frontend",
+        "UserPoolName": "frontpagedemod95a5a92_userpool_d95a5a92"
+      },
+      "lastPushDirHash": "cBSqALTofZl18qcUgzfuchlN1D0="
+    }
+  }
+}
