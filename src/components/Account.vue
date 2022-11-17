@@ -125,6 +125,7 @@
         this.isrender = true;
         this.authState = 'signedin';
         this.user = user;
+        this.$router.push({ path: 'profile' }).then(() => { }).catch(() => { });
       }).catch(() => {
         this.isrender = true;
       });
@@ -133,22 +134,6 @@
         this.isMessage = !!$event;
         this.message = $event;
       });
-    },
-    methods: {
-      async signOut() {
-        this.signOutLoading = true;
-        try {
-          await Auth.signOut({
-            global: true
-          });
-          this.authState = '';
-          this.user = null;
-          this.tab = 'signin'
-          this.signOutLoading = false;
-        } catch (error) {
-          this.signOutLoading = false;
-          this.$root.$emit('alert-message', error.message);        }
-      }
     }
   };
 </script>
