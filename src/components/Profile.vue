@@ -43,13 +43,15 @@
                   <div class="text-h6 font-weight-bold text-center text-sm-left pb-2">
                     Nickname
                   </div>
-                  <v-text-field v-model="attributes.nickname" :rules="nicNameRules" label="Nickname" outlined></v-text-field>
+                  <v-text-field v-model="attributes.nickname" :rules="nicNameRules" label="Nickname" outlined>
+                  </v-text-field>
                 </v-col>
                 <v-col cols="12" md="6" class="">
                   <div class="text-h6 font-weight-bold text-center text-sm-left pb-2">
                     Website URL
                   </div>
-                  <v-text-field v-model="attributes.website" :rules="webSiteRules" label="www.makewithtech.com" outlined>
+                  <v-text-field v-model="attributes.website" :rules="webSiteRules" label="www.makewithtech.com"
+                    outlined>
                   </v-text-field>
                 </v-col>
               </v-row>
@@ -58,7 +60,8 @@
                   <div class="text-h6 font-weight-bold text-center text-sm-left pb-2">
                     About You
                   </div>
-                  <v-textarea label="Enter Your Information" v-model="attributes.about_me" auto-grow outlined rows="10" row-height="15"></v-textarea>
+                  <v-textarea label="Enter Your Information" v-model="attributes.about_me" auto-grow outlined rows="10"
+                    row-height="15"></v-textarea>
                 </v-col>
                 <v-col cols="12" class="">
                   <div class="primary--text font-weight-bold text-center text-sm-left">
@@ -89,7 +92,8 @@
                   </div>
                 </v-col>
                 <v-col cols="12" md="6">
-                  <v-checkbox v-model="attributes.experimental_feature"  value="'true'" label="Try experimental features"></v-checkbox>
+                  <v-checkbox v-model="attributes.experimental_feature" value="'true'"
+                    label="Try experimental features"></v-checkbox>
                   <v-btn :loading="loading" :disabled="loading" type="submit" x-large class="grey darken-3 white--text">
                     Save/Update Account
                   </v-btn>
@@ -135,9 +139,6 @@
 </style>
 <script>
   import {
-    onAuthUIStateChange
-  } from "@aws-amplify/ui-components";
-  import {
     Auth
   } from "aws-amplify";
 
@@ -155,7 +156,7 @@
         nickname: '',
         website: '',
         experimental_feature: 'false',
-        redirect_to:''
+        redirect_to: ''
       },
       signOutLoading: false,
       nicNameRules: [
@@ -171,27 +172,26 @@
       itemsselect: ['Foo', 'Bar', 'Fizz', 'Buzz'],
     }),
     name: "AuthStateApp",
-  created() {
-    this.getUserInfo();
-      this.unsubscribeAuth = onAuthUIStateChange((authState, authData) => {
-        this.authState = authState;
-        this.user = authData;
-      });
+    async created() {
+      await this.getUserInfo();
+
     },
     methods: {
       async getUserInfo() {
         this.valid = false;
-        await Auth.currentUserInfo({
+        await Auth.currentAuthenticatedUser({
           bypassCache: false // Optional, By default is false. If set to true, this call will send a request to Cognito to get the latest user data
-        }).then(user => {
-          const { username, attributes, id } = user;
+    }).then(user => {
+      const { username, attributes, id } = user;
           this.sub = attributes.sub;
           this.id = id;
           this.username = username;
           this.email = attributes.email;
           this.attributes = attributes;
           this.valid = true;
-        });
+      }).catch(() => {
+        this.$router.push({ path: 'account' }).then(() => { }).catch(() => { });
+      });
       },
       async updateAccount() {
         if (!this.$refs.form.validate()) {
@@ -200,15 +200,15 @@
         this.loading = true;
         const user = await Auth.currentAuthenticatedUser();
         await Auth.updateUserAttributes(user, {
-          nickname:this.attributes.nickname,
+          nickname: this.attributes.nickname,
           website: this.attributes.website,
           // 'custom:experimental_feature':this.attributes.experimental_feature,
           // 'custom:buymeacofee_id':this.attributes.buymeacofee_id,
           // 'custom:redirect_to':this.attributes.redirect_to,
           // 'custom:about_me':this.attributes.about_me,
         }).then(() => {
-          this.loading = false;         
-        }).catch((err) => { 
+          this.loading = false;
+        }).catch((err) => {
           this.loading = false;
           console.log(err);
         });
@@ -229,9 +229,6 @@
         }
       }
 
-    },
-    beforeDestroy() {
-      this.unsubscribeAuth();
-    },
+    }
   };
 </script>
