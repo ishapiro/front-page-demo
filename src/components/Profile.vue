@@ -179,9 +179,7 @@
     methods: {
       async getUserInfo() {
         this.valid = false;
-        await Auth.currentAuthenticatedUser({
-          bypassCache: false // Optional, By default is false. If set to true, this call will send a request to Cognito to get the latest user data
-    }).then(user => {
+        await Auth.currentUserInfo().then(user => {
       const { username, attributes, id } = user;
           this.sub = attributes.sub;
           this.id = id;
