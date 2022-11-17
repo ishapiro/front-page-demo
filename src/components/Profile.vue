@@ -37,7 +37,7 @@
                 </div>
               </v-col>
             </v-row>
-            <v-form v-model="valid" ref="form" @submit.prevent="updateAccount" lazy-validation>
+            <v-form  ref="form" @submit.prevent="updateAccount">
               <v-row class=" mt-16">
                 <v-col cols="12" md="6" class="">
                   <div class="text-h6 font-weight-bold text-center text-sm-left pb-2">
@@ -125,13 +125,6 @@
   </div>
 </template>
 <style>
-  :root {
-    --amplify-primary-color: #ff7500;
-    --amplify-primary-tint: #3f6060;
-    /* --amplify-primary-shade: #2dba89; */
-    /* --amplify-background-color: #e0faf4; */
-  }
-
   .profile-page {
     background: url('@/assets/bg-profile.png') no-repeat center center / cover;
     background-size: cover;
@@ -144,7 +137,6 @@
 
   export default {
     data: () => ({
-      valid: false,
       loading: false,
       username: '',
       sub: '',
@@ -174,11 +166,9 @@
     name: "AuthStateApp",
     async created() {
       await this.getUserInfo();
-
     },
     methods: {
       async getUserInfo() {
-        this.valid = false;
         await Auth.currentUserInfo().then(user => {
       const { username, attributes, id } = user;
           this.sub = attributes.sub;
@@ -186,7 +176,6 @@
           this.username = username;
           this.email = attributes.email;
           this.attributes = attributes;
-          this.valid = true;
       }).catch(() => {
         this.$router.push({ path: 'account' }).then(() => { }).catch(() => { });
       });
@@ -206,9 +195,8 @@
           // 'custom:about_me':this.attributes.about_me,
         }).then(() => {
           this.loading = false;
-        }).catch((err) => {
+        }).catch(() => {
           this.loading = false;
-          console.log(err);
         });
       },
       async signOut() {

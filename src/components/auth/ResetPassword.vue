@@ -1,6 +1,6 @@
 <template>
   <v-card elevation="5" class="px-14 rounded-xl">
-    <v-form ref="form" v-model="valid" @submit.prevent="resetPassword" lazy-validation>
+    <v-form ref="form" @submit.prevent="resetPassword" lazy-validation>
       <v-row class=" mt-16">
         <v-col cols="12" class="align-self-center text-center text-md-left">
           <div class="text-h3 primary--text text-center font-weight-bold pt-10">
@@ -51,7 +51,6 @@
     data() {
       return {
         show1: false,
-        valid: true,
         loading: false,
         new_password: '',
         username: this.email,

@@ -1,6 +1,6 @@
 <template>
     <v-card elevation="5" class="px-14 rounded-xl">
-        <v-form ref="form" v-model="valid" @submit.prevent="signUp">
+        <v-form ref="form" @submit.prevent="signUp">
             <v-row class=" mt-16">
                 <v-col cols="12" class="align-self-center text-center text-md-left">
                     <div class="text-h3 primary--text text-center font-weight-bold pt-10">
@@ -53,27 +53,18 @@
 </style>
 <script>
     import {
-        onAuthUIStateChange
-    } from "@aws-amplify/ui-components";
-    import {
         Auth
     } from "aws-amplify";
 
     export default {
         name: "SignUpPage",
         created() {
-            this.unsubscribeAuth = onAuthUIStateChange((authState, authData) => {
-                this.authState = authState;
-                this.user = authData;
-            });
+            
         },
         data() {
             return {
                 loading:false,
-                valid: true,
                 user: undefined,
-                authState: undefined,
-                unsubscribeAuth: undefined,
                 show1: false,
                 username: '',
                 password: '',
@@ -90,35 +81,26 @@
                 ],
             };
         },
-        beforeDestroy() {
-            this.unsubscribeAuth();
-        },
         methods: {
             async signUp() {
                 if (!this.$refs.form.validate()) { 
                     return;
                 }
                 this.loading = true;
-                
                 try {
-                    const {
-                        user
-                    } = await Auth.signUp({
+                    await Auth.signUp({
                         username:this.username,
                         password:this.password,
                         attributes: {
-                            email:this.email, // optional
-                            //phone_number, // optional - E.164 number convention
-                            // other custom attributes 
+                            email:this.email,
                         },
-                        autoSignIn: { // optional - enables auto sign in after user is confirmed
-                            enabled: true,
+                        autoSignIn: {
+                            enabled: false,
                         }
                     });
+                    await this.$emit('email', this.username);
+                    await this.$emit('changeTab', 'confirm-signup');
                     this.loading = false;
-                    this.$emit('email', this.username);
-                    this.$emit('changeTab', 'confirm-signup');
-                    console.log(user);
                 } catch (error) {
                     this.loading = false;
                     this.$root.$emit('alert-message', error.message);

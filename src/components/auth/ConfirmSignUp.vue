@@ -1,6 +1,6 @@
 <template>
   <v-card elevation="5" class="px-14 rounded-xl">
-    <v-form ref="form" v-model="valid" @submit.prevent="confirmSignUp" lazy-validation>
+    <v-form ref="form" @submit.prevent="confirmSignUp" lazy-validation>
       <v-row class=" mt-16">
         <v-col cols="12" class="align-self-center text-center text-md-left">
           <div class="text-h3 primary--text text-center font-weight-bold pt-10">
@@ -25,10 +25,10 @@
         <v-col cols="12" class="pb-0">
           <div class="text-subtitle-1 font-weight-bold text-center text-sm-left pb-2">
             <a @click="resendConfirmationCode" href="javascript:void(0)" class="secondary--text text-decoration-none">
-                            Resend code
-                        </a>
+              Resend code
+            </a>
           </div>
-          
+
         </v-col>
 
         <v-col cols="12" class="text-center">
@@ -37,7 +37,8 @@
             SUBMIT
           </v-btn>
           <div class="text-subtitle-1 black--text pt-6 pb-8">
-            <a link @click="$emit('changeTab','signin')" href="javascript:void(0)" class="secondary--text text-decoration-none">
+            <a link @click="$emit('changeTab','signin')" href="javascript:void(0)"
+              class="secondary--text text-decoration-none">
               Back to Sign in
             </a>
           </div>
@@ -53,7 +54,8 @@
   }
 </style>
 <script>
-  import Auth from '@aws-amplify/auth';
+import { Auth } from 'aws-amplify';
+
 
   export default {
     name: "ConfirmSignup",
@@ -61,7 +63,6 @@
     data() {
       return {
         loading: false,
-        valid: true,
         username: this.email,
         code: '',
         userNameRules: [
@@ -78,10 +79,16 @@
           return;
         }
         this.loading = true;
+        await Auth.confirmSignUp(this.username, this.code).then(() => { 
+
+            this.$router.push({
+              path: '/profile'
+            }).then(() => {}).catch(() => {});
+
+        }).catch(err => { 
+          console.log(err);
+        });
         try {
-          await Auth.confirmSignUp(this.username, this.code);
-          // this.$emit('changeTab', 'signin');
-          this.$router.push({ path: 'profile' }).then(() => { }).catch(() => { });
           this.loading = false;
         } catch (error) {
           this.loading = false;
@@ -94,12 +101,10 @@
         }
         try {
           await Auth.resendSignUp(this.username);
-          console.log('code resent successfully');
         } catch (err) {
           this.$root.$emit('alert-message', err.message);
         }
       }
-    },
-    beforeDestroy() {},
+    }
   };
 </script>

@@ -20,33 +20,14 @@
           <v-img max-width="913" src="@/assets/account-hero-img.png"></v-img>
         </v-col>
         <v-col cols="12" md="5">
-          <!-- <amplify-authenticator>
-            <div v-if="authState === 'signedin' && user">
-              <div>Hello, {{ user.username }}</div>
-            </div>
-            <amplify-sign-out></amplify-sign-out>
-          </amplify-authenticator> -->
           <template v-if="isrender">
-            <!-- <amplify-authenticator>
-            <amplify-sign-in header-text="Sign in to your account" slot="sign-in" />
-            <div>
-              My App
-              <amplify-sign-out></amplify-sign-out>
-            </div>
-            <amplify-sign-up header-text="Create a new account" slot="sign-up" have-account-text="Already have an account?" submit-button-text="Sign up" />
-          </amplify-authenticator> -->
-            <div v-if="authState === 'signedin' && user">
-              {{ user.username }}
-              <v-btn :loading="signOutLoading" @click="signOut">Sign Out</v-btn>
-            </div>
-            <template v-else>
-              <signInVue v-if="tab == 'signin'" @user="user = $event" @authState="authState = $event"
-                @changeTab="tab = $event" />
+
+              <signInVue v-if="tab == 'signin'" @user="user = $event" @authState="authState = $event" @changeTab="tab = $event" />
               <Signup v-if="tab == 'signup'" @changeTab="tab = $event" @email="email =  $event" />
               <ConfirmSignup v-if="tab == 'confirm-signup'" :email="email" @changeTab="tab = $event" />
               <Forgotpassword v-if="tab == 'forgot'" @changeTab="tab = $event.tab;email = $event.email" />
               <ResetPassword v-if="tab == 'reset-password'" :email="email" @changeTab="tab = $event" />
-            </template>
+
           </template>
         </v-col>
       </v-row>
@@ -105,31 +86,23 @@
     },
     data() {
       return {
-        user: undefined,
         isMessage: false,
         message: '',
         isrender:false,
-        authState: undefined,
-        unsubscribeAuth: undefined,
         show1: false,
-        password: 'Password',
         tab: 'signin',
         email: '',
-        signOutLoading: false,
       };
     },
     async mounted() {
       await Auth.currentAuthenticatedUser({
-          bypassCache: false // Optional, By default is false. If set to true, this call will send a request to Cognito to get the latest user data
-      }).then(user => {
+        bypassCache: false
+      }).then(() => {
         this.isrender = true;
-        this.authState = 'signedin';
-        this.user = user;
         this.$router.push({ path: 'profile' }).then(() => { }).catch(() => { });
       }).catch(() => {
         this.isrender = true;
       });
-
       this.$root.$on('alert-message', ($event) => {
         this.isMessage = !!$event;
         this.message = $event;

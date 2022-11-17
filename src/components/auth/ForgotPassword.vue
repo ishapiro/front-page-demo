@@ -1,6 +1,6 @@
 <template>
         <v-card elevation="5" class="px-14 rounded-xl">
-            <v-form v-model="valid" ref="form" @submit.prevent="submitForgot" lazy-validation>
+            <v-form ref="form" @submit.prevent="submitForgot" lazy-validation>
                 <v-row class=" mt-16">
                     <v-col cols="12" class="align-self-center text-center text-md-left">
                         <div class="text-h3 primary--text text-center font-weight-bold pt-10">
@@ -49,7 +49,6 @@
         name: "ForgotPassword",
         data() {
             return {
-                valid: true,
                 forgot_page: true,
                 loading: false,
                 show1: false,
@@ -66,13 +65,12 @@
                 }
                 this.loading = true;
                 await Auth.forgotPassword(this.username)
-                .then(async (result) => {
+                .then(async () => {
                         this.loading = false;
-                    await this.$emit('changeTab', {
-                        tab: 'reset-password',
-                        email: this.username
-                    });
-                        console.log('Code sent successfully',result);
+                        await this.$emit('changeTab', {
+                            tab: 'reset-password',
+                            email: this.username
+                        });
                     })
                     .catch(error => {
                         this.loading = false;
